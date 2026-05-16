@@ -1,0 +1,16 @@
+.mainContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+  margin: 5rem;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  border: black solid 1px;
+  max-width: 450px;
+  padding: 1rem;
+}
