@@ -1,0 +1,18 @@
+.mainLoginContainer {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  align-items: center;
+  grid-template-rows: auto;
+  background-color: black;
+  height: 100vh;
+  width: 100%;
+  color: orangered;
+}
+
+.imageSt {
+  background-size: cover;
+  background-position: center;
+  object-fit: cover;
+  -webkit-mask-image: linear-gradient(to right, black 10%, transparent 100%);
+  mask-image: linear-gradient(to right, black 80%, transparent 100%);
+}

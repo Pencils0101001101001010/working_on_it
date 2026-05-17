@@ -11,10 +11,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 function Register() {
   const [serverError, setServerError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+
+  const route = useRouter();
 
   // Initialize useForm with zod schema :
   // Pass RegisterInput here to handle the raw form fields accurately
@@ -52,6 +55,9 @@ function Register() {
       if (response.ok) {
         setSuccess("Registration Successfull.");
         reset();
+        setTimeout(() => {
+          route.push("/login");
+        }, 1000);
       }
     } catch (error) {
       setServerError("Something went wrong.");

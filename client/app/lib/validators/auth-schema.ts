@@ -26,3 +26,11 @@ export type RegisterInput = z.input<typeof registerSchema>;
 
 // 2. This represents the strictly parsed output data after validation (Age is safely a number)
 export type RegisterOutput = z.output<typeof registerSchema>;
+
+export const loginSchema = z.object({
+  username: z.string().min(1, "Username is required."),
+  password: z.string().min(1, "Password is required."),
+});
+
+export type LoginInput = z.input<typeof loginSchema>;
+export type LoginOutput = z.output<typeof loginSchema>;
