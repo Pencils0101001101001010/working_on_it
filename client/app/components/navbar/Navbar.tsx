@@ -19,7 +19,9 @@ function Navbar() {
 
     if (savedUser) {
       try {
+        //structure the data
         const parsedUser = JSON.parse(savedUser);
+        // set data to state
         setUserName(parsedUser.username);
       } catch (error) {
         console.log("error parsing user data");
