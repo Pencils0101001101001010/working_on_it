@@ -3,17 +3,14 @@ import { useState } from "react";
 import "./styles.css";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
-import {
-  LoginInput,
-  loginSchema,
-  RegisterInput,
-  registerSchema,
-} from "@/app/lib/validators/auth-schema";
+import { LoginInput, loginSchema } from "@/app/lib/validators/auth-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 
 function Login() {
   const [serverError, setServerError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const route = useRouter();
 
   const {
     register,
@@ -40,8 +37,17 @@ function Login() {
         body: JSON.stringify(data),
       });
 
+      if (!response.ok) {
+        if (response.status === 401) {
+          setServerError("Check user credentials");
+        }
+      }
+
       if (response.ok) {
         setSuccess("Logged in.");
+        setTimeout(() => {
+          route.push("/");
+        }, 1000);
       }
     } catch (error) {
       setServerError("Something went wrong. Try again later.");
@@ -59,21 +65,24 @@ function Login() {
         />
       </div>
       <div>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} className="form">
+          <h1>Login</h1>
           {serverError && <p style={{ color: "red" }}>{serverError}</p>}
           {success && <p style={{ color: "green" }}>{success}</p>}
           <label>Username:</label>
-          <input className="inputS" type="text" {...register("username")} />
+          <input className="inpStl" type="text" {...register("username")} />
           {errors.username && (
             <span className="error">{errors.username.message}</span>
           )}
           <label>Password:</label>
-          <input className="inputS" type="password" {...register("password")} />
+          <input className="inpStl" type="password" {...register("password")} />
           {errors.password && (
             <span className="error">{errors.password.message}</span>
           )}
 
-          <button type="submit">Login</button>
+          <button type="submit" className="bttnS">
+            Login
+          </button>
         </form>
       </div>
     </div>

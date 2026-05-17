@@ -78,6 +78,7 @@ function Register() {
       <div>
         {" "}
         <form onSubmit={handleSubmit(onSubmit)} className="form">
+          <h1>Signup</h1>
           {serverError && <p style={{ color: "red" }}>{serverError}</p>}
           {success && <p style={{ color: "green" }}>{success}</p>}
           <label>Username:</label>
