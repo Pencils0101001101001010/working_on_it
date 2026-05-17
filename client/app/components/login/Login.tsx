@@ -44,7 +44,23 @@ function Login() {
       }
 
       if (response.ok) {
-        setSuccess("Logged in.");
+        // getting data from backend  rensponse
+        const resData = await response.json();
+
+        // extracting the token and user name
+        const token = resData.token;
+        const user = resData.user;
+
+        if (token) {
+          // storing data in localstorage
+          localStorage.setItem("authToken", token);
+
+          localStorage.setItem("user", JSON.stringify(user));
+        }
+
+        setSuccess(`Success! Welcome back ${user.username}`);
+
+        route.refresh();
         setTimeout(() => {
           route.push("/");
         }, 1000);

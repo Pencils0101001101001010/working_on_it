@@ -42,8 +42,11 @@ const signup = async (req, res) => {
       },
     );
 
+    const userWithoutPassword = user.toObject();
+    delete userWithoutPassword.password;
+
     res.status(201).json({
-      user,
+      user: userWithoutPassword,
       token,
     });
   } catch (error) {
@@ -89,9 +92,14 @@ const login = async (req, res) => {
       },
     );
 
+    //Remove password before sending response
+    const userWithoutPassword = user.toObject();
+    delete userWithoutPassword.password;
+
     //return user and token if all is a isMatch
     res.json({
-      user,
+      message: "Login successful",
+      user: userWithoutPassword,
       token,
     });
   } catch (error) {
