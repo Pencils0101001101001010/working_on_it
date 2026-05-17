@@ -1,16 +1,149 @@
 .mainContainer {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 60% 40%;
   align-items: center;
-  min-height: 100%;
-  margin: 5rem;
+  grid-template-rows: auto;
+  background-color: rgb(20, 20, 32);
+  height: 100vh;
+  width: 100%;
+}
+
+.imgStl {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  object-fit: cover;
+  -webkit-mask-image: linear-gradient(to right, black 10%, transparent 100%);
+  mask-image: linear-gradient(to right, black 80%, transparent 100%);
 }
 
 .form {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto;
-  border: black solid 1px;
-  max-width: 450px;
+  height: 100%;
+  border: rgb(186, 50, 5) solid 1px;
+  box-shadow:
+    rgba(250, 183, 102, 0.544) 0px 4px 16px,
+    rgba(247, 7, 7, 0.544) 0px 8px 24px,
+    rgba(214, 250, 10, 0.58) 0px 16px 56px;
+  border-radius: 15px;
+  max-width: 500px;
+
   padding: 1rem;
+  margin: 1rem;
+  color: rgb(255, 94, 40);
+}
+
+.inpStl {
+  border: rgb(186, 50, 5) solid 1px;
+  background: rgb(118, 31, 2);
+  padding: 5px;
+  border-radius: 8px;
+  margin-bottom: 5px;
+  color: black;
+}
+
+/* Target the input when it is active/focused */
+.inpStl:focus {
+  /* 1. Remove the default browser outline */
+  outline: none;
+
+  /* 2. Change the actual border color */
+  border: rgb(250, 183, 102) solid 1px;
+
+  /* 3. Optional: Add a subtle glow effect matching your theme */
+  box-shadow: 0 0 8px rgba(250, 183, 102, 0.6);
+}
+
+.bttnS {
+  background: linear-gradient(
+    6deg,
+    rgba(250, 183, 102, 0.683) 10%,
+    rgba(247, 7, 7, 0.623) 50%,
+    rgba(214, 250, 10, 0.596) 100%
+  );
+  color: rgb(254, 191, 1);
+  padding: 5px;
+  margin-top: 1rem;
+  border-radius: 8px;
+}
+
+.bttnS:hover {
+  background: linear-gradient(
+    6deg,
+    rgb(250, 183, 102) 0%,
+    rgb(247, 7, 7) 35%,
+    rgb(214, 250, 10) 100%
+  );
+}
+
+.error {
+  color: red;
+  background-color: rgba(255, 0, 0, 0.14);
+  border-radius: 8px;
+  text-align: center;
+}
+
+.loginLink {
+  margin: 2px;
+}
+.hvrLink:hover {
+  color: rgb(214, 250, 10);
+}
+
+@media (max-width: 1000px) {
+  .mainContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 40% 60%;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  .imgStl {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    -webkit-mask-image: linear-gradient(to bottom, black 10%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+  }
+
+  .form {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    height: auto;
+    border: rgb(186, 50, 5) solid 1px;
+    box-shadow:
+      rgba(250, 183, 102, 0.544) 0px 4px 16px,
+      rgba(247, 7, 7, 0.544) 0px 8px 24px,
+      rgba(214, 250, 10, 0.58) 0px 16px 56px;
+    border-radius: 15px;
+    max-width: 100%;
+
+    padding: 1rem;
+    margin: 1rem;
+    color: rgb(255, 94, 40);
+  }
+}
+
+@media (max-width: 600px) {
+  .mainContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    background-color: rgb(20, 20, 32);
+    height: 100vh;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+  .imgStl {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    -webkit-mask-image: linear-gradient(to bottom, black 10%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+  }
 }

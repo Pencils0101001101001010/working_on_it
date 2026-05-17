@@ -4,10 +4,15 @@
   align-items: center;
   min-width: 100%;
   min-height: 3rem;
-  background-color: rgba(107, 142, 130, 0.409);
+  background: linear-gradient(
+    6deg,
+    rgba(250, 183, 102, 0.683) 0%,
+    rgba(247, 7, 7, 0.623) 35%,
+    rgba(214, 250, 10, 0.596) 100%
+  );
   align-items: center;
   padding: 1rem;
-  color: rgb(187, 100, 234);
+  color: black;
 }
 
 /* .logoStyle {
@@ -17,7 +22,5 @@
 } */
 
 .loginButtonStl:hover {
-  color: black;
-  transition: ease-in-out;
-  background-color: rgba(137, 43, 226, 0.319);
+  color: rgb(253, 4, 4);
 }

@@ -7,7 +7,13 @@ export const registerSchema = z
     firstName: z.string().min(2, "First name is required."),
     lastName: z.string().min(2, "Last name is required."),
     age: z.coerce.number().min(16, "Must be 16 or older."),
-    password: z.string().min(6, "Password must be more than 6 characters."),
+    password: z
+      .string()
+      .min(6, "Password must be more than 6 characters.")
+      .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])/, {
+        message:
+          "Password must include at least one uppercase letter, one lowercase letter, one number, and one special character",
+      }),
     confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
@@ -15,5 +21,8 @@ export const registerSchema = z
     path: ["confirmPassword"],
   });
 
-//creating like a typescript interface:
-export type RegisterSchema = z.infer<typeof registerSchema>;
+// 1. This represents the raw input data before validation (Age can be string/number)
+export type RegisterInput = z.input<typeof registerSchema>;
+
+// 2. This represents the strictly parsed output data after validation (Age is safely a number)
+export type RegisterOutput = z.output<typeof registerSchema>;

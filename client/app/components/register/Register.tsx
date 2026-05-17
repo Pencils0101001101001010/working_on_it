@@ -1,145 +1,127 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import "./style.css";
 import {
   registerSchema,
-  RegisterSchema,
+  RegisterInput,
+  RegisterOutput,
 } from "@/app/lib/validators/auth-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import Image from "next/image";
+import Link from "next/link";
 
 function Register() {
-  const [formData, setFormData] = useState<RegisterSchema>({
-    username: "",
-    email: "",
-    firstName: "",
-    lastName: "",
-    age: 16,
-    password: "",
-    confirmPassword: "",
-  });
-
-  const [error, setError] = useState<string | null>(null);
-
+  const [serverError, setServerError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+  // Initialize useForm with zod schema :
+  // Pass RegisterInput here to handle the raw form fields accurately
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<RegisterInput>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: {
+      username: "",
+      email: "",
+      firstName: "",
+      lastName: "",
+      age: 16,
+      password: "",
+      confirmPassword: "",
+    },
+  });
 
-    setFormData((prev) => ({
-      ...prev,
-      [name]: name === "age" ? Number(value) : value,
-    }));
-  };
-
-  const handleSubmit = async (e: React.SubmitEvent) => {
-    e.preventDefault();
+  //use Registeroutput here because the data is fully validated by this point
+  const onSubmit = async (data: RegisterInput) => {
     try {
-      registerSchema.parse(formData);
+      setServerError(null);
+      setSuccess(null);
 
-      const response = await fetch("http://localhost:5050/signup", {
+      const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+      const response = await fetch(`${baseUrl}/signup`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
       });
 
       if (response.ok) {
-        setSuccess("Registration successfull");
-        setError(null);
-        setFormData({
-          username: "",
-          email: "",
-          firstName: "",
-          lastName: "",
-          age: 16,
-          password: "",
-          confirmPassword: "",
-        });
-      } else {
-        const errorResponse = await response.json();
-        setError(errorResponse.message || "Failed registration");
-        setSuccess(null);
+        setSuccess("Registration Successfull.");
+        reset();
       }
     } catch (error) {
-      setError("An unexpected error occurred");
-
-      setSuccess(null);
+      setServerError("Something went wrong.");
     }
   };
 
   return (
     <div className="mainContainer">
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {success && <p style={{ color: "green" }}>{success}</p>}
-      <form onSubmit={handleSubmit} className="form">
-        <label>
-          Username:
+      <div className="imgStl">
+        <Image
+          width={2000}
+          height={2000}
+          className="imgStl"
+          alt="Mars"
+          src="/mars.jpg"
+        />
+      </div>
+      <div>
+        {" "}
+        <form onSubmit={handleSubmit(onSubmit)} className="form">
+          {serverError && <p style={{ color: "red" }}>{serverError}</p>}
+          {success && <p style={{ color: "green" }}>{success}</p>}
+          <label>Username:</label>
+          <input className="inpStl" type="text" {...register("username")} />
+          {errors.username && (
+            <span className="error">{errors.username.message}</span>
+          )}
+          <label>Email:</label>
+          <input className="inpStl" type="email" {...register("email")} />
+          {errors.email && (
+            <span className="error">{errors.email.message}</span>
+          )}
+          <label>First name:</label>
+          <input className="inpStl" type="text" {...register("firstName")} />
+          {errors.firstName && (
+            <span className="error">{errors.firstName.message}</span>
+          )}
+          <label>Last name:</label>
+          <input className="inpStl" type="text" {...register("lastName")} />
+          {errors.lastName && (
+            <span className="error">{errors.lastName.message}</span>
+          )}
+          <label>Age:</label>
+          <input className="inpStl" type="number" {...register("age")} />
+          {errors.age && <span className="error">{errors.age.message}</span>}
+          <label>Password:</label>
+          <input className="inpStl" type="password" {...register("password")} />
+          {errors.password && (
+            <span className="error">{errors.password.message}</span>
+          )}
+          <label>Confirm password:</label>
           <input
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Email:
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          First name
-          <input
-            type="text"
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Last name
-          <input
-            type="text"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Age
-          <input
-            type="number"
-            name="age"
-            value={formData.age}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Password
-          <input
+            className="inpStl"
             type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
+            {...register("confirmPassword")}
           />
-        </label>
-        <label>
-          Confirm password
-          <input
-            type="password"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-          />
-        </label>
-        <button type="submit">register</button>
-      </form>
+          {errors.confirmPassword && (
+            <span className="error">{errors.confirmPassword.message}</span>
+          )}
+          <button type="submit" className="bttnS">
+            Signup
+          </button>
+          <span className="loginLink">
+            Already have an acount:{" "}
+            <Link href={"/login"} className="hvrLink">
+              Login
+            </Link>
+          </span>
+        </form>
+      </div>
     </div>
   );
 }
