@@ -34,12 +34,19 @@ function Login() {
       const response = await fetch(`${baseUrl}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        /* 
+           This tells the browser to accept and 
+           save the HTTP-only cookie sent from Node.js backend.
+        */
+        credentials: "include",
         body: JSON.stringify(data),
       });
 
       if (!response.ok) {
         if (response.status === 401) {
           setServerError("Check user credentials");
+        } else {
+          setServerError("Something went wrong");
         }
       }
 
@@ -47,14 +54,10 @@ function Login() {
         // getting data from backend  rensponse
         const resData = await response.json();
 
-        // extracting the token and user name
-        const token = resData.token;
+        // extracting the user name
         const user = resData.user;
 
-        if (token) {
-          // storing data in localstorage
-          localStorage.setItem("authToken", token);
-
+        if (user) {
           localStorage.setItem("user", JSON.stringify(user));
         }
 

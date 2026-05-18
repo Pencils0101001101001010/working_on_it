@@ -2,6 +2,16 @@ const User = require("../models/Users.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+//configure cookies
+
+const cookieOptions = {
+  httpOnly: true, //prevent client-side scripts from reading token
+  secure: process.env.NODE_ENV === "production", //use HTTPS in production
+  sameSite: "strict", //Protects againts CSRF attacks
+  maxAge: 24 * 60 * 60 * 1000, //24 hours life
+  path: "/",
+};
+
 const signup = async (req, res) => {
   try {
     //grab the field submited
@@ -45,9 +55,11 @@ const signup = async (req, res) => {
     const userWithoutPassword = user.toObject();
     delete userWithoutPassword.password;
 
+    //set token inside HTTP-Only cookie
+    res.cookie("authToken", token, cookieOptions);
+
     res.status(201).json({
       user: userWithoutPassword,
-      token,
     });
   } catch (error) {
     res.status(500).json(error);
@@ -96,15 +108,33 @@ const login = async (req, res) => {
     const userWithoutPassword = user.toObject();
     delete userWithoutPassword.password;
 
+    // Set token inside HTTP-Only cookie
+    res.cookie("authToken", token, cookieOptions);
+
     //return user and token if all is a isMatch
     res.json({
       message: "Login successful",
       user: userWithoutPassword,
-      token,
     });
   } catch (error) {
     res.status(500).json(error);
   }
 };
 
-module.exports = { signup, login };
+const logout = async (req, res) => {
+  try {
+    //Clear cookie by overwriting it and exporong it immediatly
+    res.clearCookie("authToken", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      path: "/",
+    });
+
+    res.status(200).json({ message: "Logged out!" });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+module.exports = { signup, login, logout };

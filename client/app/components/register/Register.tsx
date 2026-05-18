@@ -49,6 +49,9 @@ function Register() {
       const response = await fetch(`${baseUrl}/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        // Ensures that if your signup endpoint drops a cookie
+        //    automatically, the browser will allow it
+        credentials: "include",
         body: JSON.stringify(data),
       });
 

@@ -3,11 +3,14 @@
 import Link from "next/link";
 import "./styles.css";
 import { useEffect, useState } from "react";
+import LogoutButton from "../(logoutButton)/LogoutButton";
+import { useRouter } from "next/navigation";
 
 function Navbar() {
   //create a button that shows signin when now user is login and user name when login:
   const [isMounted, setIsmounted] = useState(false);
   const [username, setUserName] = useState<string | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     // make sure we on the browser:
@@ -48,8 +51,10 @@ function Navbar() {
       </div>
       {username ? (
         <div className="userMenu">
-          <span className="welcomeText">{username}</span>
-          {/* <button className="logoutButton">Logout</button> */}
+          {/* <span className="welcomeText">{username}</span> */}
+          <span>
+            <LogoutButton />
+          </span>
         </div>
       ) : (
         <Link href={"/register"} className="loginButtonStl">
