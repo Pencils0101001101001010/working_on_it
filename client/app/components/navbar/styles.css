@@ -6,9 +6,26 @@
   min-height: 3rem;
   background: linear-gradient(
     6deg,
-    rgba(250, 183, 102, 0.683) 0%,
-    rgba(247, 7, 7, 0.623) 35%,
-    rgba(214, 250, 10, 0.596) 100%
+    rgba(138, 249, 132, 0.537) 0%,
+    rgba(254, 132, 132, 0.521) 35%,
+    rgba(155, 248, 253, 0.527) 100%
+  );
+  align-items: center;
+  padding: 1rem;
+  color: black;
+}
+
+.loading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 100%;
+  min-height: 3rem;
+  background: linear-gradient(
+    6deg,
+    rgba(138, 249, 132, 0.537) 0%,
+    rgba(254, 132, 132, 0.521) 35%,
+    rgba(155, 248, 253, 0.527) 100%
   );
   align-items: center;
   padding: 1rem;
@@ -16,7 +33,14 @@
 }
 
 .userMenu {
-  padding: 5px;
+  padding: 0.5rem;
+}
+
+.signupAndLoginSection {
+  display: flex;
+  justify-content: space-evenly;
+  width: 10rem;
+  padding: 0.5rem;
 }
 
 /* .logoStyle {

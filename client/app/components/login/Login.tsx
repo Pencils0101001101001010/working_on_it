@@ -6,10 +6,12 @@ import { useForm } from "react-hook-form";
 import { LoginInput, loginSchema } from "@/app/lib/validators/auth-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/app/context/authContext";
 
 function Login() {
   const [serverError, setServerError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const { loginUser } = useAuth();
   const route = useRouter();
 
   const {
@@ -58,7 +60,7 @@ function Login() {
         const user = resData.user;
 
         if (user) {
-          localStorage.setItem("user", JSON.stringify(user));
+          loginUser(user);
         }
 
         setSuccess(`Success! Welcome back ${user.username}`);
