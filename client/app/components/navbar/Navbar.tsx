@@ -62,10 +62,10 @@ function Navbar() {
         </div>
         {user ? (
           <div className="userMenu">
-            <span className="welcomeText">{user.username}</span>
             <button onClick={handleLogout} className="loginButtonStl">
               Logout
             </button>
+            <span className="userName">{user.username}</span>
           </div>
         ) : (
           <div className="signupAndLoginSection">

@@ -33,8 +33,15 @@
 }
 
 .userMenu {
+  display: flex;
+  justify-content: space-evenly;
+  width: 10rem;
   padding: 0.5rem;
 }
+
+/* .userName{
+  
+} */
 
 .signupAndLoginSection {
   display: flex;
