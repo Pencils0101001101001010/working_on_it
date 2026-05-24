@@ -51,7 +51,7 @@ function Navbar() {
             {" "}
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="25"
+              width="20"
               fill="currentColor"
               className="bi bi-asterisk"
               viewBox="0 0 16 16"
