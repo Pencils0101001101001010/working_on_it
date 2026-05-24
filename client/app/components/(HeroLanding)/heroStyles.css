@@ -1,6 +1,88 @@
 .heroContainer {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  height: 93.3vh;
+  flex-direction: column;
+  position: relative;
+  background-image: url("/heroImage.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 3rem;
+}
+
+.borderTopLeft {
+  border-top: 1px solid white; /* Thick red dashed top */
+  border-left: 2px solid white;
+  position: absolute;
+  width: 60%;
+  height: 60%;
+  top: 1rem;
+  left: 1rem;
+}
+
+.borderTopLeft2 {
+  border-top: 1px solid white; /* Thick red dashed top */
+  border-left: 2px solid white;
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  top: 2rem;
+  left: 2rem;
+}
+
+.borderBottom {
+  border-bottom: 1px solid white; /* Thick red dashed top */
+  border-right: 2px solid white;
+  position: absolute;
+  width: 60%;
+  height: 60%;
+  bottom: 1rem;
+  right: 1rem;
+}
+
+.borderbttm2 {
+  border-bottom: 1px solid white; /* Thick red dashed top */
+  border-right: 2px solid white;
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  bottom: 2rem;
+  right: 2rem;
+}
+
+.titleText {
+  color: white;
+  font-size: 3rem;
+  font-weight: 100;
+}
+
+.textUnderTitle {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 100;
+}
+
+@media (max-width: 600px) {
+  .heroContainer {
+    display: flex;
+    height: 93vh;
+    flex-direction: column;
+    position: relative;
+    background-image: url("/heroImage.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 3rem;
+  }
+  .titleText {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 200;
+  }
+
+  .textUnderTitle {
+    color: white;
+    font-size: 1rem;
+    font-weight: 200;
+  }
 }
