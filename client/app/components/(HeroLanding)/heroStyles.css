@@ -12,7 +12,7 @@
 
 .borderTopLeft {
   border-top: 1px solid white; /* Thick red dashed top */
-  border-left: 2px solid white;
+  border-left: 1px solid white;
   position: absolute;
   width: 60%;
   height: 60%;
@@ -22,7 +22,7 @@
 
 .borderTopLeft2 {
   border-top: 1px solid white; /* Thick red dashed top */
-  border-left: 2px solid white;
+  border-left: 1px solid white;
   position: absolute;
   width: 50%;
   height: 50%;
@@ -32,7 +32,7 @@
 
 .borderBottom {
   border-bottom: 1px solid white; /* Thick red dashed top */
-  border-right: 2px solid white;
+  border-right: 1px solid white;
   position: absolute;
   width: 60%;
   height: 60%;
@@ -42,7 +42,7 @@
 
 .borderbttm2 {
   border-bottom: 1px solid white; /* Thick red dashed top */
-  border-right: 2px solid white;
+  border-right: 1px solid white;
   position: absolute;
   width: 50%;
   height: 50%;

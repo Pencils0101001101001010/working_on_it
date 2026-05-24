@@ -4,7 +4,12 @@
   align-items: center;
   min-width: 100%;
   max-height: 4rem;
-  background: linear-gradient(6deg, black 1%, white 35%, gray 100%);
+  background: linear-gradient(
+    6deg,
+    rgb(9, 8, 8) 10%,
+    rgb(252, 252, 253) 40%,
+    gray 100%
+  );
   align-items: center;
   padding: 1rem;
   color: black;
