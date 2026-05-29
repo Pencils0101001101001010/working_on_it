@@ -1,10 +1,11 @@
+// @ts-nocheck
 const User = require("../models/Users.js");
 
 const getUser = async (req, res) => {
   //req.user is requested safly by auth middleware
   const currentUserId = req.user.userId;
 
-  // get user data excluding the password by using select("minuspassword") you can also choose to only select certain fields by using select("username email age")
+  // get user data excluding the password by using select("minus password") you can also choose to only select certain fields by using select("username email age")
   const user = await User.findById(currentUserId).select("-password");
 
   res.json(user);
