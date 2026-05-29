@@ -1,7 +1,7 @@
 // @ts-nocheck
-const User = require("../models/Users.js");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+import User from "../models/Users.js";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 //configure cookies
 
@@ -13,7 +13,7 @@ const cookieOptions = {
   path: "/",
 };
 
-const signup = async (req, res) => {
+export const signup = async (req, res) => {
   try {
     //grab the field submited
     const { username, email, password, firstName, lastName, age } = req.body;
@@ -67,7 +67,7 @@ const signup = async (req, res) => {
   }
 };
 
-const login = async (req, res) => {
+export const login = async (req, res) => {
   try {
     //Get user from request
     const { username, password } = req.body;
@@ -122,7 +122,7 @@ const login = async (req, res) => {
   }
 };
 
-const logout = async (req, res) => {
+export const logout = async (req, res) => {
   try {
     //Clear cookie by overwriting it and exporong it immediatly
     res.clearCookie("authToken", {
@@ -137,5 +137,3 @@ const logout = async (req, res) => {
     res.status(500).json(error);
   }
 };
-
-module.exports = { signup, login, logout };

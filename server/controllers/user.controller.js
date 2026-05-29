@@ -1,7 +1,7 @@
 // @ts-nocheck
-const User = require("../models/Users.js");
+import User from "../models/Users.js";
 
-const getUser = async (req, res) => {
+export const getUser = async (req, res) => {
   //req.user is requested safly by auth middleware
   const currentUserId = req.user.userId;
 
@@ -11,7 +11,7 @@ const getUser = async (req, res) => {
   res.json(user);
 };
 
-const getAllUsers = async (req, res) => {
+export const getAllUsers = async (req, res) => {
   //only select non sensitive data to return
   // mongoose will pull only this spefic fields mentioned in the select()
   const users = await User.find().select(
@@ -19,9 +19,4 @@ const getAllUsers = async (req, res) => {
   );
 
   res.json(users);
-};
-
-module.exports = {
-  getUser,
-  getAllUsers,
 };

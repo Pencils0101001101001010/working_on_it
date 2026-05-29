@@ -1,12 +1,15 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const cookieParser = require("cookie-parser");
+// @ts-nocheck
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+import dotenv from "dotenv";
+import authRoutes from "./routes/auth.routes.js";
+import userRoutes from "./routes/user.routes.js";
+// import helmet from "helmet";
+// import mongoSanitize from "express-mongo-sanitize";
 
-require("dotenv").config();
-
-const authRoutes = require("./routes/auth.routes.js");
-const userRoutes = require("./routes/user.routes.js");
+dotenv.config();
 
 const app = express();
 app.use(cookieParser());
@@ -16,6 +19,12 @@ app.use(
     credentials: true, // Crucial: Allows cookies to travel over cross-origin headers
   }),
 );
+
+// This adds secure HTTP headers to prevent XSS and clickjacking
+// app.use(helmet());
+
+// sanitizes user input to completely prevent NoSQL injection attempts
+// app.use(mongoSanitize());
 
 app.use(express.json());
 

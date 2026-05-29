@@ -53,7 +53,7 @@ function Login() {
       }
 
       if (response.ok) {
-        // getting data from backend  rensponse
+        // getting data from backend  response
         const resData = await response.json();
 
         // extracting the user name

@@ -1,7 +1,7 @@
 // @ts-nocheck
-const jwt = require("jsonwebtoken");
+import jwt from "jsonwebtoken";
 
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
   try {
     // 1. Read the token directly from the cookies object
     const token = req.cookies ? req.cookies.authToken : null;
