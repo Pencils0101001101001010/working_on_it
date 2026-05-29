@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import authRoutes from "./routes/auth.routes.js";
 import userRoutes from "./routes/user.routes.js";
+import noteRoutes from "./routes/note.routes.js";
 // import helmet from "helmet";
 // import mongoSanitize from "express-mongo-sanitize";
 
@@ -31,6 +32,7 @@ app.use(express.json());
 app.use("/", authRoutes);
 app.use("/user", userRoutes);
 app.use("/logout", authRoutes);
+app.use("/api/notes", noteRoutes);
 
 mongoose
   .connect(process.env.MONGODB_URI)
