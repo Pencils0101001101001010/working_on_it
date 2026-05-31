@@ -65,6 +65,11 @@ function Navbar() {
             <button onClick={handleLogout} className="button-89">
               Logout
             </button>
+
+            <Link href={"/notes"} className="button-89">
+              Notes
+            </Link>
+
             {/* <span className="userName">{user.username}</span> */}
           </div>
         ) : (

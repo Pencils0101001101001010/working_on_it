@@ -8,7 +8,7 @@ import {
   useState,
 } from "react";
 
-//This context is created to insure the acurate buttons are displayed in the navbar when a user is logged in and logged out
+//This context is created to insure the accurate buttons are displayed in the navbar when a user is logged in and logged out
 //By creating this context provider we share one user state across the app.
 
 interface UserProfile {
@@ -17,7 +17,7 @@ interface UserProfile {
   role: string;
 }
 
-interface AuthContectType {
+interface AuthContextType {
   user: UserProfile | null;
   //if user is logged in there will be data
   loginUser: (userData: UserProfile) => void;
@@ -26,7 +26,7 @@ interface AuthContectType {
   loading: boolean;
 }
 
-const AuthContext = createContext<AuthContectType | undefined>(undefined);
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   //in the state there will either be a user or null

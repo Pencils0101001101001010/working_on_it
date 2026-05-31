@@ -6,7 +6,11 @@ export const getNotes = async (req, res) => {
   try {
     const notes = await Note.find({ user: req.user.userId });
 
-    res.status(200).json(notes);
+    if (notes.length === 0) {
+      return res.status(204).json([]);
+    }
+
+    return res.status(200).json(notes);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -23,7 +27,7 @@ export const createNote = async (req, res) => {
       description,
     });
 
-    res.status(201).json({ message: newNote });
+    return res.status(201).json({ message: newNote });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -43,9 +47,9 @@ export const getNoteById = async (req, res) => {
         .json({ message: "Note not found or unauthorized" });
     }
 
-    res.status(200).json(note);
+    return res.status(200).json(note);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };
 
@@ -64,9 +68,9 @@ export const updateNote = async (req, res) => {
         .json({ message: "Note not found or unauthorized" });
     }
 
-    res.status(200).json(updateNote);
+    return res.status(200).json(updateNote);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };
 
@@ -84,8 +88,8 @@ export const deleteNote = async (req, res) => {
         .json({ message: "Note not found or unauthorized" });
     }
 
-    res.status(200).json({ message: "Note successfully deleted" });
+    return res.status(200).json({ message: "Note successfully deleted" });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };
