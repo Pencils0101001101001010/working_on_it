@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Loading from "../(loading spinner)/Loading";
-import { useRouter } from "next/navigation";
 
 interface User {
   _id: string;
@@ -32,12 +31,10 @@ const NotesPage = () => {
   const [newDescription, setNewDescription] = useState("");
   const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-  const route = useRouter();
-
   const getNotes = async () => {
     try {
       setLoading(true);
-
+      // fetch all notes
       const response = await fetch(`${baseUrl}/api/notes`, {
         method: "GET",
         headers: {
@@ -93,7 +90,7 @@ const NotesPage = () => {
       }
 
       /**Optimistic UI Update
-       * This code loops through your current list of notes in the browser and creates a new array that leaves out the one you just deleted. React then instantly updates the screen with this filtered list so the deleted note vanishes without needing to reload the page.
+       * This code loops through  current list of notes in the browser and creates a new array that leaves out the one  just deleted. React then instantly updates the screen with this filtered list so the deleted note vanishes without needing to reload the page.
        */
       setNotes((prevNote) => prevNote.filter((notes) => notes._id !== id));
 
@@ -143,7 +140,7 @@ const NotesPage = () => {
 
       const updateNote: Note = await response.json();
 
-      // buy comparing the previous state and updated stat we can update the ui immediately
+      //Optimistic UI Update, buy comparing the previous state and updated stat we can update the ui immediately
       setNotes((prevNote) =>
         prevNote.map((n) => (n._id === updateNote._id ? updateNote : n)),
       );
