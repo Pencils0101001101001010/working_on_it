@@ -23,8 +23,11 @@ const NotesPage = () => {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  // state to trigger open modal
   const [editModal, setEditModal] = useState(false);
+  // state to edit note
   const [editNote, setEditNote] = useState<Note | null>(null);
+  // to pass edited title and description to backend
   const [newTitle, setNewTitle] = useState("");
   const [newDescription, setNewDescription] = useState("");
   const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -105,6 +108,7 @@ const NotesPage = () => {
 
   const handleOpenEdit = (note: Note) => {
     setEditModal(true);
+    //pass data to note edit state
     setEditNote(note);
     setNewTitle(note.title);
     setNewDescription(note.description);
@@ -139,6 +143,7 @@ const NotesPage = () => {
 
       const updateNote: Note = await response.json();
 
+      // buy comparing the previous state and updated stat we can update the ui immediately
       setNotes((prevNote) =>
         prevNote.map((n) => (n._id === updateNote._id ? updateNote : n)),
       );
