@@ -23,13 +23,17 @@ const NotesPage = () => {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [editModal, setEditModal] = useState(false);
+  const [editNote, setEditNote] = useState<Note | null>(null);
+  const [newTitle, setNewTitle] = useState("");
+  const [newDescription, setNewDescription] = useState("");
   const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   const route = useRouter();
 
   const getNotes = async () => {
     try {
-      setLoading(false);
+      setLoading(true);
 
       const response = await fetch(`${baseUrl}/api/notes`, {
         method: "GET",
@@ -56,7 +60,6 @@ const NotesPage = () => {
       if (response.ok) {
         const data: Note[] = await response.json();
 
-        console.log(data);
         setNotes(data);
         setLoading(false);
       }
@@ -95,9 +98,60 @@ const NotesPage = () => {
       setSuccess("Note deleted");
     } catch (error) {
       setError("Failed to delete note");
+      setLoading(false);
       console.log(error);
     }
   };
+
+  const handleOpenEdit = (note: Note) => {
+    setEditModal(true);
+    setEditNote(note);
+    setNewTitle(note.title);
+    setNewDescription(note.description);
+  };
+
+  const closeEditModal = () => {
+    setEditModal(false);
+    setEditNote(null);
+  };
+
+  const handleEditSubmit = async (e: React.SubmitEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setSuccess(null);
+
+    try {
+      const response = await fetch(`${baseUrl}/api/notes/${editNote?._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          title: newTitle,
+          description: newDescription,
+        }),
+      });
+
+      if (!response.ok) {
+        setError("Failed to update.");
+      }
+
+      const updateNote: Note = await response.json();
+
+      setNotes((prevNote) =>
+        prevNote.map((n) => (n._id === updateNote._id ? updateNote : n)),
+      );
+
+      setLoading(false);
+      setSuccess("Note updated");
+      setEditModal(false);
+    } catch (error) {
+      setError("Something went wrong.");
+      setLoading(false);
+    }
+  };
+
   return (
     <div>
       <div>
@@ -105,14 +159,41 @@ const NotesPage = () => {
       </div>
 
       {loading && <Loading />}
-      {error}
+      {error && <p>{error}</p>}
+      {success && <p>{success}</p>}
       {notes.map((n) => (
         <div key={n._id}>
           <h1>{n.title}</h1>
           <p>{n.description}</p>
           <button onClick={() => handleDeleteNote(n._id)}>delete</button>
+
+          <button onClick={() => handleOpenEdit(n)}>Edit</button>
         </div>
       ))}
+
+      {editModal && editModal && (
+        <div style={{ padding: 30 }}>
+          <button style={{ padding: 10 }} onClick={() => closeEditModal()}>
+            close
+          </button>
+          <form onSubmit={handleEditSubmit}>
+            <label>Change Title:</label>
+            <input
+              type="text"
+              value={newTitle}
+              onChange={(e) => setNewTitle(e.target.value)}
+            />
+
+            <textarea
+              value={newDescription}
+              onChange={(e) => setNewDescription(e.target.value)}
+              required
+              style={{ border: "1px solid black", padding: "5px" }}
+            />
+            <button type="submit">save</button>
+          </form>
+        </div>
+      )}
     </div>
   );
 };
