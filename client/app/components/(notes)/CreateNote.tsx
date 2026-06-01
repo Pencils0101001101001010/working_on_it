@@ -7,6 +7,7 @@ import { noteSchema, NoteSchema } from "./createNoteValidation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import Loading from "../(loading spinner)/Loading";
+import toast from "react-hot-toast";
 
 function CreateNote() {
   const [error, setError] = useState<string | null>(null);
@@ -64,15 +65,26 @@ function CreateNote() {
     }
   };
 
+  useEffect(() => {
+    if (success) {
+      toast.success(success);
+      setSuccess(null);
+    }
+
+    if (error) {
+      toast.error(error);
+      setError(null);
+    }
+  }, [success, error]);
+
   return (
     <div>
       {user ? (
         <div>
           <form onSubmit={handleSubmit(handleOnSubmit)}>
             <h1>Create note</h1>
-            {error && <p>{error}</p>}
+
             {loading && <Loading />}
-            {success && <p>{success}</p>}
 
             <label>
               Title:
