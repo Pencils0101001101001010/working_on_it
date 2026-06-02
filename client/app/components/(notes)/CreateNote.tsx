@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import Loading from "../(loading spinner)/Loading";
 import toast from "react-hot-toast";
+import "./styles.css";
 
 function CreateNote() {
   const [error, setError] = useState<string | null>(null);
@@ -78,30 +79,40 @@ function CreateNote() {
   }, [success, error]);
 
   return (
-    <div>
+    <div className="createFormContainer">
+      <div className="createFormHeader">
+        <h1>Create note</h1>
+
+        {loading && <Loading />}
+
+        <Link href={"../../notes"}>back</Link>
+      </div>
       {user ? (
         <div>
-          <form onSubmit={handleSubmit(handleOnSubmit)}>
-            <h1>Create note</h1>
+          <form
+            onSubmit={handleSubmit(handleOnSubmit)}
+            className="formBodyGrid"
+          >
+            <label className="formInputTitle">Title:</label>
+            <input
+              type="text"
+              {...register("title")}
+              className="inputsStlForms"
+            />
 
-            {loading && <Loading />}
+            <label className="formInputTitle">Note:</label>
+            <textarea {...register("description")} className="inputsStlForms" />
 
-            <label>
-              Title:
-              <input type="text" {...register("title")} />
-            </label>
-
-            <label>
-              Note:
-              <textarea {...register("description")} />
-            </label>
-
-            <button type="submit">Submit</button>
+            <button type="submit" className="saveButton">
+              Submit
+            </button>
           </form>
         </div>
       ) : (
-        <div>
-          To create a note <Link href={"/login"}>Login</Link>
+        <div className="userNotLoggedIn">
+          <Link href={"/login"} className="loginLink">
+            Login to create a note
+          </Link>
         </div>
       )}
     </div>

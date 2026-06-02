@@ -3,6 +3,7 @@
   flex-direction: column;
   justify-content: center;
   margin: 1rem;
+  position: relative;
 }
 
 .noteHeader {
@@ -13,6 +14,7 @@
   border-radius: 20px;
   padding: 1rem;
   color: rgb(35, 73, 47);
+  box-shadow: rgba(0, 0, 0, 0.643) 10px 10px 20px 1px;
 }
 
 .pageTitle {
@@ -36,6 +38,7 @@
   margin: 1rem;
   border: rgb(80, 246, 136) solid 1px;
   border-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.643) 10px 10px 20px 1px;
 }
 
 .noteTitleAndDescription {
@@ -76,4 +79,134 @@
 
 .editButton:hover {
   color: black;
+}
+
+/* ------------Pop up edit modal------------- */
+
+.modalBackdrop {
+  width: 100%;
+  height: 90vh;
+  position: absolute;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.295);
+  border-radius: 20px;
+}
+
+.modalBody {
+  display: flex;
+  position: fixed; /* Changed from absolute to stay in viewport */
+  top: 50%; /* Move top edge to screen center */
+  left: 50%; /* Move left edge to screen center */
+  transform: translate(-50%, -50%); /* Pull back by half its own width/height */
+  z-index: 1000; /* Ensure it sits on top of other content */
+  border-radius: 20px;
+  max-width: 450px;
+  box-shadow: rgba(0, 0, 0, 0.643) 10px 10px 20px 1px;
+}
+
+.formHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(80, 246, 135, 0.402);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 20px;
+}
+
+.closeButton {
+  padding: 5px;
+}
+
+.closeButton:hover {
+  color: tomato;
+}
+
+.formBodySection {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 80px 40px 40px 40px auto 50px;
+  background-color: white;
+  border: rgba(80, 246, 135, 0.821) solid 2px;
+  padding: 1rem;
+  border-radius: 15px;
+}
+
+.formInputTitle {
+  font-size: 1.5rem;
+}
+
+.inputsStlForms {
+  border: rgba(80, 246, 135, 0.671) solid 2px;
+}
+
+.saveButton {
+  background-color: rgba(80, 246, 135, 0.402);
+  margin-top: 1rem;
+  border-radius: 20px;
+}
+
+.saveButton:hover {
+  background-color: rgba(80, 246, 135, 0.821);
+}
+
+/* -------------Create Form-------------- */
+.createFormContainer {
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+  margin: 1rem;
+}
+
+.createFormHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(80, 246, 135, 0.402);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 20px;
+  font-size: 1.5rem;
+  box-shadow: rgba(0, 0, 0, 0.643) 10px 10px 20px 1px;
+  width: 100%;
+}
+
+.formBodyGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 40px 40px 40px auto 50px;
+  justify-self: center;
+  background-color: white;
+  border: rgba(80, 246, 135, 0.821) solid 2px;
+  padding: 1rem;
+  border-radius: 15px;
+  width: 800px;
+  box-shadow: rgba(0, 0, 0, 0.643) 10px 10px 20px 1px;
+}
+
+.userNotLoggedIn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  font-size: xx-large;
+}
+
+.loginLink:hover {
+  color: rgba(80, 246, 135, 0.821);
+}
+
+@media (max-width: 600px) {
+  .formBodyGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 40px 40px 40px auto 50px;
+    justify-self: center;
+    background-color: white;
+    border: rgba(80, 246, 135, 0.821) solid 2px;
+    padding: 1rem;
+    border-radius: 15px;
+    width: 400px;
+    box-shadow: rgba(0, 0, 0, 0.643) 10px 10px 20px 1px;
+  }
 }

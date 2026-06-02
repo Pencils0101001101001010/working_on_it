@@ -172,6 +172,8 @@ const NotesPage = () => {
     <div className="noteBodyContainer">
       <div className="noteHeader">
         <span className="pageTitle">Notes</span>
+        {loading && <Loading />}
+
         <Link href={"/createNote"}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -183,7 +185,6 @@ const NotesPage = () => {
             <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0" />
           </svg>
         </Link>
-        {loading && <Loading />}
       </div>
 
       {notes.map((n) => (
@@ -225,27 +226,44 @@ const NotesPage = () => {
         </div>
       ))}
 
-      {editModal && editModal && (
-        <div style={{ padding: 30 }}>
-          <button style={{ padding: 10 }} onClick={() => closeEditModal()}>
-            close
-          </button>
-          <form onSubmit={handleEditSubmit}>
-            <label>Change Title:</label>
-            <input
-              type="text"
-              value={newTitle}
-              onChange={(e) => setNewTitle(e.target.value)}
-            />
-            <label>Change description:</label>
-            <textarea
-              value={newDescription}
-              onChange={(e) => setNewDescription(e.target.value)}
-              required
-              style={{ border: "1px solid black", padding: "5px" }}
-            />
-            <button type="submit">save</button>
-          </form>
+      {editModal && (
+        <div className="modalBackdrop" onClick={closeEditModal}>
+          {/* stopPropagation prevents clicking inside the form from closing the modal */}
+          <div className="modalBody" onClick={(e) => e.stopPropagation()}>
+            <form onSubmit={handleEditSubmit} className="formBodySection">
+              <div className="formHeader">
+                <h3>Edit Note</h3>
+                <button
+                  type="button"
+                  className="closeButton"
+                  onClick={closeEditModal}
+                >
+                  ✕
+                </button>
+              </div>
+
+              <label className="formInputTitle">Change Title:</label>
+              <input
+                type="text"
+                value={newTitle}
+                onChange={(e) => setNewTitle(e.target.value)}
+                required
+                className="inputsStlForms"
+              />
+
+              <label className="formInputTitle">Change Description:</label>
+              <textarea
+                value={newDescription}
+                onChange={(e) => setNewDescription(e.target.value)}
+                required
+                className="inputsStlForms"
+              />
+
+              <button type="submit" className="saveButton">
+                Save Changes
+              </button>
+            </form>
+          </div>
         </div>
       )}
     </div>
