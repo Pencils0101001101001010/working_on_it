@@ -125,7 +125,7 @@
 .formBodySection {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 80px 40px 40px 40px auto 50px;
+  grid-template-rows: 80px 40px 40px 40px 200px 50px;
   background-color: white;
   border: rgba(80, 246, 135, 0.821) solid 2px;
   padding: 1rem;
