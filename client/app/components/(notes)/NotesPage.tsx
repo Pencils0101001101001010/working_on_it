@@ -47,7 +47,8 @@ const NotesPage = () => {
 
       if (response.ok) {
         if (response.status === 204) {
-          return setError("You have no notes");
+          setError("You have no notes, create now");
+          return setLoading(false);
         }
       }
 
