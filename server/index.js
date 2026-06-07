@@ -1,12 +1,12 @@
-// @ts-nocheck
+import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import dotenv from "dotenv";
 import authRoutes from "./routes/auth.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import noteRoutes from "./routes/note.routes.js";
+// import editRoutes from "./routes/image.edit.route.js";
 // import helmet from "helmet";
 // import mongoSanitize from "express-mongo-sanitize";
 
@@ -33,6 +33,19 @@ app.use("/", authRoutes);
 app.use("/user", userRoutes);
 app.use("/logout", authRoutes);
 app.use("/api/notes", noteRoutes);
+app.use("/edit", editRoutes);
+
+//handle all errors
+app.use((error, req, res, next) => {
+  if (error && error.status) {
+    res.status(error.status).json({ error: error.message });
+  } else {
+    console.log(error);
+    res.status(500).json({
+      error: "Sorry, something happened on our side.",
+    });
+  }
+});
 
 mongoose
   .connect(process.env.MONGODB_URI)
