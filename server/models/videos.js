@@ -14,6 +14,10 @@ const videoSchema = new Schema(
       required: true,
       unique: true,
     },
+    videoUrl: {
+      type: String,
+      required: true,
+    },
     name: {
       type: String,
       required: true,
