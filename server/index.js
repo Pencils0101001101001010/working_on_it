@@ -16,8 +16,10 @@ const app = express();
 app.use(cookieParser());
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:3000", // NO wildcards (*) allowed when using credentials
-    credentials: true, // Crucial: Allows cookies to travel over cross-origin headers
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "filename"],
   }),
 );
 

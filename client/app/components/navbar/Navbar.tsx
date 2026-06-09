@@ -62,14 +62,16 @@ function Navbar() {
         </div>
         {user ? (
           <div className="userMenu">
-            <button onClick={handleLogout} className="button-89">
-              Logout
-            </button>
-
             <Link href={"/notes"} className="button-89">
               Notes
             </Link>
 
+            <Link href={"/videos"} className="button-89">
+              Videos
+            </Link>
+            <button onClick={handleLogout} className="button-89">
+              Logout
+            </button>
             {/* <span className="userName">{user.username}</span> */}
           </div>
         ) : (

@@ -138,6 +138,7 @@
 
 .inputsStlForms {
   border: rgba(80, 246, 135, 0.671) solid 2px;
+  padding: 1rem;
 }
 
 .saveButton {
