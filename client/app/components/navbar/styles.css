@@ -6,9 +6,9 @@
   max-height: 4rem;
   background: linear-gradient(
     6deg,
-    rgb(9, 8, 8) 1%,
-    rgb(189, 189, 194) 40%,
-    gray 100%
+    rgb(255, 68, 0) 20%,
+    rgba(255, 68, 0, 0.539) 40%,
+    rgba(253, 68, 1, 0.984) 100%
   );
   align-items: center;
   padding: 1rem;
@@ -90,7 +90,7 @@
 .logoStyle {
   --b: 1px; /* border thickness */
   --s: 0.45em; /* size of the corner */
-  --color: #eeeff3;
+  /* --color: black; */
 
   padding: calc(0.5em + var(--s)) calc(0.9em + var(--s));
   color: var(--color);

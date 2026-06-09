@@ -10,11 +10,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgba(80, 246, 135, 0.402);
+  background: linear-gradient(
+    6deg,
+    rgb(255, 68, 0) 20%,
+    rgba(255, 68, 0, 0.539) 40%,
+    rgba(250, 146, 108, 0.178) 100%
+  );
   border-radius: 20px;
   padding: 1rem;
-  color: rgb(35, 73, 47);
-  box-shadow: rgba(0, 0, 0, 0.643) 10px 10px 20px 1px;
+  color: black;
+  box-shadow: rgba(255, 68, 0, 0.322) 10px 10px 20px 1px;
 }
 
 .pageTitle {
@@ -22,11 +27,11 @@
 }
 
 .addNoteIconStyle {
-  color: rgb(35, 73, 47);
+  color: black;
 }
 
 .addNoteIconStyle:hover {
-  color: rgb(87, 89, 88);
+  color: rgba(255, 0, 0, 0.33);
 }
 
 .cardStyle {
@@ -36,9 +41,11 @@
   max-width: 100%;
   padding: 2rem;
   margin: 1rem;
-  border: rgb(80, 246, 136) solid 1px;
+  border: orangered solid 1px;
   border-radius: 20px;
-  box-shadow: rgba(0, 0, 0, 0.643) 10px 10px 20px 1px;
+  box-shadow: rgba(255, 68, 0, 0.322) 10px 10px 20px 1px;
+  background-color: rgb(2, 2, 2);
+  color: orangered;
 }
 
 .noteTitleAndDescription {
@@ -65,7 +72,7 @@
 /* *Delete and edit buttons */
 .deleteButton {
   margin: 5px;
-  color: rgba(255, 99, 71, 0.521);
+  color: rgba(255, 99, 71, 0.857);
 }
 
 .deleteButton:hover {
@@ -74,11 +81,11 @@
 
 .editButton {
   margin: 5px;
-  color: rgba(0, 0, 0, 0.433);
+  color: rgba(255, 68, 0, 0.462);
 }
 
 .editButton:hover {
-  color: black;
+  color: orangered;
 }
 
 /* ------------Pop up edit modal------------- */
@@ -88,7 +95,7 @@
   height: 100%;
   position: absolute;
   top: 0;
-  background-color: rgba(0, 0, 0, 0.295);
+  background-color: rgba(0, 0, 0, 0.569);
   border-radius: 20px;
 }
 
@@ -101,17 +108,24 @@
   z-index: 1000; /* Ensure it sits on top of other content */
   border-radius: 20px;
   max-width: 450px;
-  box-shadow: rgba(0, 0, 0, 0.643) 10px 10px 20px 1px;
+  box-shadow: rgba(255, 68, 0, 0.322) 10px 10px 20px 1px;
 }
 
 .formHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgba(80, 246, 135, 0.402);
+  background: linear-gradient(
+    6deg,
+    rgb(255, 68, 0) 20%,
+    rgba(255, 68, 0, 0.539) 40%,
+    rgba(250, 146, 108, 0.178) 100%
+  );
   padding: 1rem;
   margin-bottom: 1rem;
   border-radius: 20px;
+  color: black;
+  box-shadow: rgba(255, 68, 0, 0.322) 10px 10px 20px 1px;
 }
 
 .closeButton {
@@ -125,11 +139,12 @@
 .formBodySection {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 80px 40px 40px 40px 200px 50px;
-  background-color: white;
-  border: rgba(80, 246, 135, 0.821) solid 2px;
+  grid-template-rows: 80px 50px 50px 50px 200px 50px;
+  background-color: rgb(5, 5, 5);
+  border: orangered solid 2px;
   padding: 1rem;
   border-radius: 15px;
+  color: orangered;
 }
 
 .formInputTitle {
@@ -137,18 +152,20 @@
 }
 
 .inputsStlForms {
-  border: rgba(80, 246, 135, 0.671) solid 2px;
-  padding: 1rem;
+  border: orangered solid 2px;
+
+  padding: 1.5rem;
 }
 
 .saveButton {
-  background-color: rgba(80, 246, 135, 0.402);
+  background-color: rgba(255, 68, 0, 0.41);
+  color: black;
   margin-top: 1rem;
   border-radius: 20px;
 }
 
 .saveButton:hover {
-  background-color: rgba(80, 246, 135, 0.821);
+  background-color: orangered;
 }
 
 /* -------------Create Form-------------- */
@@ -163,26 +180,32 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgba(80, 246, 135, 0.402);
+  background: linear-gradient(
+    6deg,
+    rgb(255, 68, 0) 20%,
+    rgba(255, 68, 0, 0.539) 40%,
+    rgba(250, 146, 108, 0.178) 100%
+  );
   padding: 1rem;
   margin-bottom: 1rem;
   border-radius: 20px;
   font-size: 1.5rem;
-  box-shadow: rgba(0, 0, 0, 0.643) 10px 10px 20px 1px;
+  box-shadow: rgba(255, 68, 0, 0.322) 10px 10px 20px 1px;
   width: 100%;
 }
 
 .formBodyGrid {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 40px 40px 40px auto 50px;
+  grid-template-rows: repeat(3, 50px) auto 50px;
   justify-self: center;
-  background-color: white;
-  border: rgba(80, 246, 135, 0.821) solid 2px;
+  background-color: black;
+  border: orangered solid 2px;
   padding: 1rem;
   border-radius: 15px;
   width: 800px;
-  box-shadow: rgba(0, 0, 0, 0.643) 10px 10px 20px 1px;
+  box-shadow: rgba(255, 68, 0, 0.322) 10px 10px 20px 1px;
+  color: orangered;
 }
 
 .userNotLoggedIn {
@@ -194,20 +217,21 @@
 }
 
 .loginLink:hover {
-  color: rgba(80, 246, 135, 0.821);
+  color: orangered;
 }
 
 @media (max-width: 600px) {
   .formBodyGrid {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 40px 40px 40px auto 50px;
+    grid-template-rows: repeat(3, 50px) auto 50px;
     justify-self: center;
-    background-color: white;
-    border: rgba(80, 246, 135, 0.821) solid 2px;
+    background-color: rgb(6, 6, 6);
+    border: orangered solid 2px;
     padding: 1rem;
     border-radius: 15px;
+    color: orangered;
     width: 400px;
-    box-shadow: rgba(0, 0, 0, 0.643) 10px 10px 20px 1px;
+    box-shadow: rgba(255, 68, 0, 0.322) 10px 10px 20px 1px;
   }
 }

@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Loading from "../(loading spinner)/Loading";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 interface IVideoDimensions {
   width?: number;
@@ -27,11 +29,23 @@ interface IVideo {
   updatedAt: string;
 }
 
+// Axios CancelToken allows you to abort/cancel HTTP requests mid-flight.
+const CancelToken = axios.CancelToken;
+// Global variable to store the cancellation function for the current upload.
+let cancel;
+
 const VideoEditInterface = () => {
   const [videos, setVideos] = useState<IVideo[]>([]);
+  const [filename, setFilename] = useState("");
+  const [file, setFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  // Tracks upload progress from 0 to 100 percent
+  const [progress, setProgress] = useState(0);
+  // Tracks if the file has reached 100% upload and is now being processed by the server.
+  const [processing, setProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const router = useRouter();
   const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   const getVideos = async () => {
@@ -69,6 +83,66 @@ const VideoEditInterface = () => {
     }
   };
 
+  // --- UTILITY FUNCTIONS ---
+  // Resets all state variables back to their initial empty values and cancels active requests.
+  const cancelUploading = () => {
+    setIsLoading(false);
+    setProcessing(false);
+    setFilename("");
+    setProgress(0);
+    setFile(null);
+  };
+
+  const handleVideoPost = async (e: any) => {
+    e.preventDefault();
+    if (!file) return toast.error("Please select a video file first");
+
+    setIsLoading(true);
+    setProgress(0);
+    setProcessing(false);
+    try {
+      const { data } = await axios.post(`${baseUrl}/videos`, file, {
+        withCredentials: true, // this is important, if not included then our auth middleware will fail
+        headers: {
+          filename: filename,
+        },
+
+        // Native Axios hook that monitors file chunks arriving at the server.
+        onUploadProgress: (data) => {
+          // Calculates the current percentage.
+          const progressNumber = Math.round((100 * data.loaded) / data.total!);
+          setProgress(progressNumber);
+          // If the network upload hits 100%, switch UI state to "processing" on the backend.
+          if (progressNumber === 100) setProcessing(true);
+        },
+        // Attaches the executor function to capture the cancel token reference.
+        cancelToken: new CancelToken(function executor(c) {
+          cancel = c; // Assigns the cancel function to our global variable
+        }),
+      });
+
+      if (data.status === "success") {
+        cancelUploading(); //reset states
+        setSuccess("File was uploaded successfully");
+        await getVideos();
+        router.refresh();
+      }
+    } catch (error: any) {
+      if (error.response && error.response.data.error) {
+        setError(error.response.data.error);
+        cancelUploading();
+      }
+    }
+  };
+
+  const onInputFileChange = async (e: any) => {
+    setFilename(e.target.files[0]?.name);
+    setFile(e.target.files[0]);
+  };
+
+  // console.log(filename);
+  // console.log(file);
+
   useEffect(() => {
     getVideos();
   }, []);
@@ -88,6 +162,14 @@ const VideoEditInterface = () => {
     <div className="p-6 bg-black text-gray-500">
       {isLoading && <Loading />}
       <h1 className="text-2xl font-bold  mb-4"> Video Studio</h1>
+      <form
+        onSubmit={handleVideoPost}
+        className="flex justify-between p-5 border border-gray-500"
+      >
+        {" "}
+        <input type="file" name="file" id="file" onChange={onInputFileChange} />
+        <button type="submit">Post</button>
+      </form>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {videos.map((v) => (
@@ -117,6 +199,7 @@ const VideoEditInterface = () => {
             </div>
           </div>
         ))}
+        <div></div>
       </div>
     </div>
   );
