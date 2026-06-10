@@ -95,7 +95,7 @@ const VideoEditInterface = () => {
 
   const handleVideoPost = async (e: any) => {
     e.preventDefault();
-    if (!file) return toast.error("Please select a video file first");
+    if (!file) return setError("Please select a video file first");
 
     setIsLoading(true);
     setProgress(0);
@@ -161,13 +161,15 @@ const VideoEditInterface = () => {
   return (
     <div className="p-6 bg-black text-gray-500">
       {isLoading && <Loading />}
+
       <h1 className="text-2xl font-bold  mb-4"> Video Studio</h1>
       <form
         onSubmit={handleVideoPost}
-        className="flex justify-between p-5 border border-gray-500"
+        className="flex justify-between p-5 border border-gray-500 mb-5"
       >
         {" "}
         <input type="file" name="file" id="file" onChange={onInputFileChange} />
+        {/* {isLoading && <span className=" ">{progress}%</span>} */}
         <button type="submit">Post</button>
       </form>
 
