@@ -49,10 +49,9 @@ const VideoEditInterface = () => {
   const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   const getVideos = async () => {
+    setIsLoading(true);
+    setError(null);
     try {
-      setIsLoading(true);
-      setError(null);
-
       const result = await fetch(`${baseUrl}/videos`, {
         method: "GET",
         headers: {
@@ -102,7 +101,7 @@ const VideoEditInterface = () => {
     setProcessing(false);
     try {
       const { data } = await axios.post(`${baseUrl}/videos`, file, {
-        withCredentials: true, // this is important, if not included then our auth middleware will fail
+        withCredentials: true, // this is important, if not included then auth middleware will fail
         headers: {
           filename: filename,
         },
