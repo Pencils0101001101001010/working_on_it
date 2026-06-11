@@ -19,7 +19,10 @@ if (cluster.isPrimary) {
 
 export const getVideo = async (req, res, errHandling) => {
   try {
-    const video = await Video.find({ userId: req.user.userId });
+    //.sort insures the latest videos are displayed on top by the frontend
+    const video = await Video.find({ userId: req.user.userId }).sort({
+      createdAt: -1,
+    });
 
     if (video.length === 0) {
       return errHandling("No videos were found for this user");

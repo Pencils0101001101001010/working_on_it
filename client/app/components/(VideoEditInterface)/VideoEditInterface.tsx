@@ -168,7 +168,6 @@ const VideoEditInterface = () => {
       >
         {" "}
         <input type="file" name="file" id="file" onChange={onInputFileChange} />
-        {/* {isLoading && <span className=" ">{progress}%</span>} */}
         <button type="submit">Post</button>
       </form>
 
