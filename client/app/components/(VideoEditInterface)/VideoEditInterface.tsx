@@ -173,10 +173,7 @@ const VideoEditInterface = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {videos.map((v) => (
-          <div
-            key={v._id}
-            className="border border-gray-500 rounded-lg p-4 shadow-sm bg-black"
-          >
+          <div key={v._id} className=" p-4 shadow-sm bg-black">
             <h2 className="text-xl font-semibold mb-2">{v.name}</h2>
 
             {/* Displaying the video using custom endpoint asset pipeline */}
