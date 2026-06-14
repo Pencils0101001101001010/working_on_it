@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "./components/navbar/Navbar";
 import { AuthProvider } from "./context/authContext";
 import { Toaster } from "react-hot-toast";
+import { VideoProvider } from "./context/VideoContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,9 +33,12 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-black">
         <AuthProvider>
-          <Navbar />
-          <Toaster />
-          {children}
+          <VideoProvider>
+            {" "}
+            <Navbar />
+            <Toaster />
+            {children}
+          </VideoProvider>
         </AuthProvider>
       </body>
     </html>
