@@ -3,15 +3,24 @@
 import React, { useEffect, useState } from "react";
 import Loading from "../(loading spinner)/Loading";
 import { useVideoActions } from "../../hooks/useVideoAction";
+import ResizeModal from "./ResizeModal";
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 const VideoEditInterface = () => {
   // Local stat container tracking the raw binary file
   //The File interface provides information about files and allows JavaScript in a web page to access their content.
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
-  const { videos, isLoading, progress, processing, getVideos, uploadVideo } =
-    useVideoActions();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const {
+    videos,
+    isLoading,
+    progress,
+    processing,
+    getVideos,
+    uploadVideo,
+    selectedVideoId,
+    setSelectedVideoId,
+  } = useVideoActions();
 
   //Side effect hook that fires once when the dashboard mounts
   useEffect(() => {
@@ -29,6 +38,11 @@ const VideoEditInterface = () => {
     //   `File size:  ${selectedFile.size} \n  Filename:  ${selectedFile.name} \n File type:  ${selectedFile.type}\n Other: ${selectedFile.bytes}`,
     // );
     setSelectedFile(null); //Clear form input once upload is done
+  };
+
+  const handleResizeClick = (videoId: string) => {
+    setIsModalOpen(true);
+    setSelectedVideoId(videoId);
   };
 
   return (
@@ -65,7 +79,18 @@ const VideoEditInterface = () => {
         </button>
       </form>
 
+      {/* debugging logs to confirm if ID is being passed */}
+      {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {selectedVideoId && (
+          <div className="mb-4 p-3 bg-neutral-900 border border-blue-900 text-blue-400 rounded text-sm">
+            Selected Video ID for resizing:{" "}
+            <span className="font-mono text-white">{selectedVideoId}</span>
+          </div>
+        )}
+      </div> */}
       {/* Responsive media view grid using custom layout boundaries across variable client viewports. */}
+      {isModalOpen && <ResizeModal />}
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Iterates through the list of video documents to dynamically project individual layout frames onto the UI. */}
         {videos.map((v) => (
@@ -91,14 +116,19 @@ const VideoEditInterface = () => {
             </div>
 
             {/* Metadata information block displaying technical structural specifications. */}
-            <div className="flex gap-2 text-sm text-gray-400">
-              <span>Format: {v.extension?.toUpperCase()}</span>
-              {/* Optional chaining check confirming dimensions specifications parameters exist before mapping values. */}
-              {v.dimensions?.width && (
-                <span>
-                  • Resolution: {v.dimensions.width}x{v.dimensions.height}
-                </span>
-              )}
+            <div className="flex justify-between gap-2 text-sm text-gray-400">
+              <span>
+                <span>Format: {v.extension?.toUpperCase()}</span>
+                {/* Optional chaining check confirming dimensions specifications parameters exist before mapping values. */}
+                {v.dimensions?.width && (
+                  <span>
+                    • Resolution: {v.dimensions.width}x{v.dimensions.height}
+                  </span>
+                )}
+              </span>
+              <button onClick={() => handleResizeClick(v.videoId)}>
+                Resize
+              </button>
             </div>
           </div>
         ))}

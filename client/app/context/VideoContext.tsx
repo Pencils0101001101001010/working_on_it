@@ -35,6 +35,8 @@ export interface Video {
 // Define the structure of the data shared across the context tree
 interface VideoContextType {
   videos: Video[];
+  selectedVideoId: string | null;
+  setSelectedVideoId: React.Dispatch<React.SetStateAction<string | null>>;
   setVideos: React.Dispatch<React.SetStateAction<Video[]>>;
 }
 
@@ -45,8 +47,15 @@ export const VideoProvider = ({ children }: { children: ReactNode }) => {
   //Set up local state array that houses all loaded video data
   const [videos, setVideos] = useState<Video[]>([]);
 
+  // tracker video id selected
+
+  const [selectedVideoId, setSelectedVideoId] = useState<string | null>(null);
+
   //Memoizes the object package so dependents only re-render when 'videos' value changes
-  const value = useMemo(() => ({ videos, setVideos }), [videos]);
+  const value = useMemo(
+    () => ({ videos, setVideos, selectedVideoId, setSelectedVideoId }),
+    [videos, selectedVideoId],
+  );
 
   return (
     //Feeds the reactive context payload down to all children nodes

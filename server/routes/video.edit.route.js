@@ -14,8 +14,8 @@ router.get("/", auth, getVideo).post("/", auth, uploadVideo);
 
 router.patch("/extract-audio", auth, extractAudio);
 
-router.put("/resize", auth, resizeVideo);
+router.put("/resize", resizeVideo);
 
-router.get("/get-video-asset", auth, getVideoAsset);
+router.get("/get-video-asset", getVideoAsset);
 
 export default router;
