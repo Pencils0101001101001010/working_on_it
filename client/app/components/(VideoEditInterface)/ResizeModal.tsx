@@ -104,7 +104,7 @@ const ResizeModal = () => {
           />
           <button
             type="submit"
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm transition"
+            className="bg-orange-700 hover:bg-orange-900 text-white px-4 py-2 rounded text-sm transition"
           >
             Submit
           </button>
@@ -128,7 +128,7 @@ const ResizeModal = () => {
                     // Conditional styling based on tracking state parameters natively
                     className={`flex justify-between items-center p-2 rounded border text-sm transition ${
                       isProcessing
-                        ? "bg-neutral-950 border-yellow-900/40 text-yellow-500 animate-pulse"
+                        ? "bg-neutral-950 border-orange-900/40 text-orange-500 animate-pulse"
                         : "bg-black border-neutral-800 text-gray-200"
                     }`}
                   >
@@ -137,15 +137,15 @@ const ResizeModal = () => {
                     </div>
 
                     {isProcessing ? (
-                      <span className="text-xs font-semibold uppercase tracking-wider bg-yellow-500/10 px-2 py-0.5 rounded">
+                      <span className="text-xs font-semibold uppercase tracking-wider bg-orange-500/10 px-2 py-0.5 rounded">
                         Processing
                       </span>
                     ) : (
                       <a
                         href={`${baseUrl}/videos/get-video-asset?videoId=${currentVideo?.videoId}&type=resize&dimensions=${dimensions}`}
-                        className="bg-neutral-800 hover:bg-blue-600 text-white px-3 py-1 rounded text-xs transition"
+                        className="bg-neutral-800 hover:bg-orange-700 text-white px-3 py-1 rounded text-xs transition"
                       >
-                        Download
+                        Get Download
                       </a>
                     )}
                   </div>

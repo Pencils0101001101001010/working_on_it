@@ -62,6 +62,7 @@ export const useVideoActions = () => {
   }, []); // Rebuilt only once when component initializes due to an empty dependency array.
 
   // Memoized function that executes binary file uploads directly to the media server
+  //The File interface provides information about files and allows JavaScript in a web page to access their content.
   const uploadVideo = useCallback(
     async (file: File, filename: string) => {
       setIsLoading(true);

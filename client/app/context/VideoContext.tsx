@@ -47,7 +47,7 @@ export const VideoProvider = ({ children }: { children: ReactNode }) => {
   //Set up local state array that houses all loaded video data
   const [videos, setVideos] = useState<Video[]>([]);
 
-  // tracker video id selected
+  // track video id selected
 
   const [selectedVideoId, setSelectedVideoId] = useState<string | null>(null);
 

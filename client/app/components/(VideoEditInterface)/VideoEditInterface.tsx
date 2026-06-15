@@ -68,7 +68,7 @@ const VideoEditInterface = () => {
         <button
           type="submit"
           disabled={!selectedFile} // Disables interaction states until an absolute target asset hits the local state buffer.
-          className="bg-blue-600 text-white px-4 py-2 rounded disabled:opacity-50"
+          className="bg-orange-600  text-white px-4 py-2 rounded disabled:opacity-50"
         >
           {/* Ternary condition switch displaying conditional text nodes mapping the active stage of execution loops. */}
           {processing
@@ -126,7 +126,10 @@ const VideoEditInterface = () => {
                   </span>
                 )}
               </span>
-              <button onClick={() => handleResizeClick(v.videoId)}>
+              <button
+                onClick={() => handleResizeClick(v.videoId)}
+                className="bg-orange-700 p-1 rounded"
+              >
                 Resize
               </button>
             </div>
