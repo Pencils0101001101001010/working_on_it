@@ -141,6 +141,7 @@ const ResizeModal = () => {
                         Processing
                       </span>
                     ) : (
+                      //! need to work on this at the moment on click the user is taken to another screen and I don't want that.
                       <a
                         href={`${baseUrl}/videos/get-video-asset?videoId=${currentVideo?.videoId}&type=resize&dimensions=${dimensions}`}
                         className="bg-neutral-800 hover:bg-orange-700 text-white px-3 py-1 rounded text-xs transition"
