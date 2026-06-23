@@ -199,7 +199,7 @@ export const extractAudio = async (req, res, handleErr) => {
     const localVideoPath = `${tempDir}/original.${video.extension}`;
     const localAudioPath = `${tempDir}/audio.aac`;
 
-    // 3. Download directly via the pre-formatted URL stored in your database
+    // 3. Download directly via the pre-formatted URL stored in database
     // console.log("Downloading via direct Public CDN link:", video.videoUrl);
 
     const response = await fetch(video.videoUrl, {

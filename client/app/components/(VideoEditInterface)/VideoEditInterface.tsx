@@ -7,7 +7,7 @@ import ResizeModal from "./ResizeModal";
 const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 const VideoEditInterface = () => {
-  // Local stat container tracking the raw binary file
+  // Local state container tracking the raw binary file
   //The File interface provides information about files and allows JavaScript in a web page to access their content.
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
