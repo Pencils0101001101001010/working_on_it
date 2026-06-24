@@ -37,6 +37,7 @@ export const getVideo = async (req, res, errHandling) => {
 };
 
 export const uploadVideo = async (req, res, handleErr) => {
+  //Get filename in custom header
   const specifiedFileName = req.headers.filename;
 
   if (!specifiedFileName) {
@@ -47,8 +48,10 @@ export const uploadVideo = async (req, res, handleErr) => {
     });
   }
 
+  //get file extension
   const extension = path.extname(specifiedFileName).substring(1).toLowerCase();
   const name = path.parse(specifiedFileName).name;
+  //create random id for video
   const videoId = crypto.randomBytes(4).toString("hex");
 
   const FORMATS_SUPPORTED = ["mov", "mp4"];
