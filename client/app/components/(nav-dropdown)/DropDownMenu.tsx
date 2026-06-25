@@ -10,7 +10,7 @@ interface UserProfileProps {
   setIsOpen: (open: boolean) => void;
 }
 
-const UserProfile = ({ isOpen, setIsOpen }: UserProfileProps) => {
+const DropDownMenu = ({ isOpen, setIsOpen }: UserProfileProps) => {
   const { user, logoutUser } = useAuth();
   const router = useRouter();
 
@@ -75,4 +75,4 @@ const UserProfile = ({ isOpen, setIsOpen }: UserProfileProps) => {
   );
 };
 
-export default UserProfile;
+export default DropDownMenu;

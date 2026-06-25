@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/app/context/authContext";
 import Loading from "../(loading spinner)/Loading";
 import { useState } from "react";
-import UserProfile from "../(nav-dropdown)/UserProfile";
+import DropDownMenu from "../(nav-dropdown)/DropDownMenu";
 
 function Navbar() {
   //create a button that shows signin when now user is login and user name when login:
@@ -55,7 +55,7 @@ function Navbar() {
               aria-expanded={isOpenDropdown}
               aria-label="Toggle user profile menu"
             >
-              <UserProfile
+              <DropDownMenu
                 isOpen={isOpenDropdown}
                 setIsOpen={setIsOpenDropdown}
               />

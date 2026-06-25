@@ -6,7 +6,7 @@
   background-color: gray;
   flex-direction: column;
   margin-top: 1.5rem;
-  height: 218px;
+  height: auto;
   width: 140px;
   z-index: 10;
   box-shadow: rgba(128, 128, 128, 0.637) 10px 10px 20px 1px;
