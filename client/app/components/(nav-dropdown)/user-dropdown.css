@@ -53,3 +53,12 @@
   background: var(--color);
   color: #fff;
 }
+
+.user-icon {
+  padding: 0.5rem;
+  border: black solid 1px;
+}
+
+.user-icon:hover {
+  background-color: rgba(102, 51, 153, 0.346);
+}

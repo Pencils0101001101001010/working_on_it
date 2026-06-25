@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useAuth } from "../context/authContext";
 
 interface UserInterface {
   username: string;
@@ -12,14 +13,14 @@ interface UserInterface {
 }
 
 function page() {
-  const [users, setUsers] = useState<UserInterface[]>([]);
+  const [users, setUsers] = useState<UserInterface | null>(null);
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-        const response = await fetch(`${baseUrl}/user/all`, {
+        const response = await fetch(`${baseUrl}/user/`, {
           method: "GET",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
@@ -30,7 +31,7 @@ function page() {
         }
 
         //extract data and parse the json payload
-        const data: UserInterface[] = await response.json();
+        const data: UserInterface = await response.json();
 
         setUsers(data);
       } catch (err) {
@@ -44,14 +45,8 @@ function page() {
 
   return (
     <div>
-      <ul>
-        {users.map((user, index) => (
-          <li key={index}>
-            {user.firstName} {user.lastName} {user.username} {user.email}{" "}
-            {user.age} {user.role}
-          </li>
-        ))}
-      </ul>
+      {users?.firstName} {users?.lastName} {users?.username} {users?.email}{" "}
+      {users?.age} {users?.role}
     </div>
   );
 }

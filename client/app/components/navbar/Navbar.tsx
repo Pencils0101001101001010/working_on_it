@@ -12,21 +12,27 @@ function Navbar() {
   //create a button that shows signin when now user is login and user name when login:
   //~ using the auth context created to detirmine the state of user
   const { user, logoutUser, loading } = useAuth();
-  const [isOpenDropdown, setIsOpenDropdown] = useState(false);
 
-  if (loading)
+  //-------------handle dropdown---------------
+  const [isOpenDropdown, setIsOpenDropdown] = useState(false);
+  const toggleDropdown = () => {
+    setIsOpenDropdown((prev) => !prev);
+  };
+  // --------------------------------------------
+
+  if (loading) {
     return (
-      <nav>
-        <div className="loading">
+      <nav className="navbar" aria-busy="true" aria-label="Main Navigation">
+        <div className="loadingContainer">
           <Loading />
         </div>
       </nav>
     );
-
+  }
   return (
     <nav>
       <div className="navBody">
-        <div className="logoStyle" onClick={() => setIsOpenDropdown(false)}>
+        <div className="logoStyle">
           {" "}
           <Link href={"/"}>
             {" "}
@@ -43,8 +49,16 @@ function Navbar() {
         </div>
         {user ? (
           <div className="userMenu">
-            <div onClick={() => setIsOpenDropdown(true)}>
-              <UserProfile isOpen={isOpenDropdown} />
+            <div
+              onClick={toggleDropdown}
+              aria-haspopup="true"
+              aria-expanded={isOpenDropdown}
+              aria-label="Toggle user profile menu"
+            >
+              <UserProfile
+                isOpen={isOpenDropdown}
+                setIsOpen={setIsOpenDropdown}
+              />
             </div>
           </div>
         ) : (

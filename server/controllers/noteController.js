@@ -4,7 +4,9 @@ import Note from "../models/Notes.js";
 export const getNotes = async (req, res) => {
   //get all notes that belongs to the user logged in
   try {
-    const notes = await Note.find({ user: req.user.userId });
+    const notes = await Note.find({ user: req.user.userId }).sort({
+      createdAt: -1,
+    });
 
     if (notes.length === 0) {
       return res.status(204).json([]);
