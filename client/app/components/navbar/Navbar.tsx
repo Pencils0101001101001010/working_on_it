@@ -5,33 +5,14 @@ import "./styles.css";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/app/context/authContext";
 import Loading from "../(loading spinner)/Loading";
+import { useState } from "react";
+import UserProfile from "../(nav-dropdown)/UserProfile";
 
 function Navbar() {
   //create a button that shows signin when now user is login and user name when login:
   //~ using the auth context created to detirmine the state of user
   const { user, logoutUser, loading } = useAuth();
-  const router = useRouter();
-
-  const handleLogout = async () => {
-    try {
-      const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-
-      //clear the server HttpOnly cookie
-      await fetch(`${baseUrl}/logout`, {
-        method: "POST",
-        credentials: "include",
-      });
-    } catch (error) {
-      console.error("Logout failed on server.", error);
-    } finally {
-      //clear state and localstorage via the context helper
-      logoutUser();
-
-      //Force state refresh and redirect
-      router.refresh();
-      router.push("/login");
-    }
-  };
+  const [isOpenDropdown, setIsOpenDropdown] = useState(false);
 
   if (loading)
     return (
@@ -45,7 +26,7 @@ function Navbar() {
   return (
     <nav>
       <div className="navBody">
-        <div className="logoStyle">
+        <div className="logoStyle" onClick={() => setIsOpenDropdown(false)}>
           {" "}
           <Link href={"/"}>
             {" "}
@@ -62,17 +43,9 @@ function Navbar() {
         </div>
         {user ? (
           <div className="userMenu">
-            <Link href={"/notes"} className="button-89">
-              Notes
-            </Link>
-
-            <Link href={"/videos"} className="button-89">
-              Videos
-            </Link>
-            <button onClick={handleLogout} className="button-89">
-              Logout
-            </button>
-            {/* <span className="userName">{user.username}</span> */}
+            <div onClick={() => setIsOpenDropdown(true)}>
+              <UserProfile isOpen={isOpenDropdown} />
+            </div>
           </div>
         ) : (
           <div className="signupAndLoginSection">

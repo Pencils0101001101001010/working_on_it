@@ -11,8 +11,8 @@
 }
 
 .borderTopLeft {
-  border-top: 1px solid orangered; /* Thick red dashed top */
-  border-left: 1px solid orangered;
+  border-top: 1px solid white; /* Thick red dashed top */
+  border-left: 1px solid white;
   position: absolute;
   width: 60%;
   height: 60%;
@@ -21,8 +21,8 @@
 }
 
 .borderTopLeft2 {
-  border-top: 1px solid orangered; /* Thick red dashed top */
-  border-left: 1px solid orangered;
+  border-top: 1px solid white; /* Thick red dashed top */
+  border-left: 1px solid white;
   position: absolute;
   width: 50%;
   height: 50%;
@@ -31,8 +31,8 @@
 }
 
 .borderBottom {
-  border-bottom: 1px solid orangered; /* Thick red dashed top */
-  border-right: 1px solid orangered;
+  border-bottom: 1px solid white; /* Thick red dashed top */
+  border-right: 1px solid white;
   position: absolute;
   width: 60%;
   height: 60%;
@@ -41,8 +41,8 @@
 }
 
 .borderbttm2 {
-  border-bottom: 1px solid orangered; /* Thick red dashed top */
-  border-right: 1px solid orangered;
+  border-bottom: 1px solid white; /* Thick red dashed top */
+  border-right: 1px solid white;
   position: absolute;
   width: 50%;
   height: 50%;
@@ -51,13 +51,13 @@
 }
 
 .titleText {
-  color: orangered;
+  color: white;
   font-size: 3rem;
   font-weight: 100;
 }
 
 .textUnderTitle {
-  color: orangered;
+  color: white;
   font-size: 1.5rem;
   font-weight: 100;
 }
@@ -75,13 +75,13 @@
     padding: 3rem;
   }
   .titleText {
-    color: orangered;
+    color: white;
     font-size: 1.5rem;
     font-weight: 200;
   }
 
   .textUnderTitle {
-    color: orangered;
+    color: white;
     font-size: 1rem;
     font-weight: 200;
   }

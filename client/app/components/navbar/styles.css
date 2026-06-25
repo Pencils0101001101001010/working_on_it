@@ -4,15 +4,11 @@
   align-items: center;
   width: 100%;
   max-height: 4rem;
-  background: linear-gradient(
-    6deg,
-    rgb(255, 68, 0) 20%,
-    rgba(255, 68, 0, 0.539) 40%,
-    rgba(253, 68, 1, 0.984) 100%
-  );
+  background: gray;
   align-items: center;
   padding: 1rem;
   color: black;
+  box-shadow: rgba(128, 128, 128, 0.496) 10px 10px 20px 1px;
 }
 
 .loading {
@@ -30,7 +26,8 @@
 .userMenu {
   display: flex;
   justify-content: space-evenly;
-  width: 18rem;
+  width: 10rem;
+  cursor: cell;
 }
 
 /* CSS */
