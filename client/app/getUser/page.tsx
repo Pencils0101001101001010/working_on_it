@@ -1,9 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
-import { useAuth } from "../context/authContext";
 
 interface UserInterface {
+  profileImage: string;
   username: string;
   email: string;
   role: string;
@@ -46,7 +47,14 @@ function page() {
   return (
     <div>
       {users?.firstName} {users?.lastName} {users?.username} {users?.email}{" "}
-      {users?.age} {users?.role}
+      {users?.age} {users?.role} {users?.profileImage}
+      {/* <Image
+        src={`https://api.dicebear.com/10.x/lorelei/svg?seed=${users?.username}`}
+        alt="user"
+        width={100}
+        height={100}
+      /> */}
+      {/* `//https://api.dicebear.com/10.x/pixel-art/svg?${users?.username}`*/}
     </div>
   );
 }

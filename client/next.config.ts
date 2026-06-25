@@ -6,6 +6,16 @@ const nextConfig: NextConfig = {
     "localhost:5050",
     "192.168.110.134:3000", // Add your local network host here
   ],
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "api.dicebear.com",
+        port: "",
+        pathname: "/**",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

@@ -59,9 +59,6 @@ const DropDownMenu = ({ isOpen, setIsOpen }: UserProfileProps) => {
           >
             Videos
           </Link>
-          <button onClick={handleLogout} className="button-89">
-            Logout
-          </button>
           <Link
             href={"/getUser"}
             className="button-89"
@@ -69,6 +66,9 @@ const DropDownMenu = ({ isOpen, setIsOpen }: UserProfileProps) => {
           >
             User
           </Link>
+          <button onClick={handleLogout} className="button-89">
+            Logout
+          </button>
         </div>
       )}
     </div>

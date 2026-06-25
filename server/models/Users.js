@@ -19,11 +19,25 @@ const userSchema = new Schema(
       required: true,
     },
 
-    firstName: String,
+    firstName: {
+      type: String,
+      default: "",
+    },
 
-    lastName: String,
+    lastName: {
+      type: String,
+      default: "",
+    },
 
     age: Number,
+
+    profileImage: {
+      type: String,
+      default: function () {
+        // Generates a permanent unique initial badge using the user's username
+        return `https://dicebear.com{encodeURIComponent(this.username || 'User')}`;
+      },
+    },
 
     role: {
       type: String,
