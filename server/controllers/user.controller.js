@@ -20,3 +20,29 @@ export const getAllUsers = async (req, res) => {
 
   res.json(users);
 };
+
+export const updateUser = async (req, res) => {
+  const currentUserId = req.user.userId;
+  try {
+    // console.log("req body: ", req.body);
+    // console.log("req userID: ", currentUserId);
+
+    const user = await User.findByIdAndUpdate(
+      { _id: currentUserId },
+      req.body,
+      { new: true, runValidators: true },
+    );
+
+    if (!user) {
+      return res
+        .status(404)
+        .json({ message: "Note not found or unauthorized" });
+    }
+
+    res.status(200).json(user);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const deleteUser = () => {};
