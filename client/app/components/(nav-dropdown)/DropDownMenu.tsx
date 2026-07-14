@@ -60,7 +60,7 @@ const DropDownMenu = ({ isOpen, setIsOpen }: UserProfileProps) => {
             Videos
           </Link>
           <Link
-            href={"/getUser"}
+            href={"/user-profile"}
             className="button-89"
             onClick={() => setIsOpen(false)}
           >

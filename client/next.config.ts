@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
     "192.168.110.134:3000", // Add your local network host here
   ],
   images: {
+    contentDispositionType: "attachment",
     remotePatterns: [
       {
         protocol: "https",

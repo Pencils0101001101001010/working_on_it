@@ -33,10 +33,7 @@ const userSchema = new Schema(
 
     profileImage: {
       type: String,
-      default: function () {
-        // Generates a permanent unique initial badge using the user's username
-        return `https://dicebear.com{encodeURIComponent(this.username || 'User')}`;
-      },
+      default: "",
     },
 
     role: {
