@@ -71,3 +71,5 @@ if (process.env.NODE_ENV !== "production") {
     })
     .catch(console.error);
 }
+
+export default app;
