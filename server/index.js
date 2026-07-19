@@ -59,9 +59,9 @@ app.use("/videos", editRoutes);
 if (process.env.NODE_ENV !== "production") {
   connectDB()
     .then(async () => {
-      app.listen(process.env.PORT || 8020, () => {
+      app.listen(process.env.PORT || 5050, () => {
         console.log(
-          `Server running locally on port ${process.env.PORT || 8020}`,
+          `Server running locally on port ${process.env.PORT || 5050}`,
         );
       });
 
