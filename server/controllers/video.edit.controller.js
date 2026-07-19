@@ -11,11 +11,7 @@ import util from "../lib/util.js";
 import FF from "../lib/FF.js";
 import Video from "../models/videos.js";
 import JobQueue from "../lib/JobQueue.js";
-
-let jobs;
-if (cluster.isPrimary) {
-  jobs = new JobQueue();
-}
+import { jobs } from "../index.js";
 
 export const getVideo = async (req, res, errHandling) => {
   try {

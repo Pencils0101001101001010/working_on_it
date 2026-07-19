@@ -19,7 +19,8 @@ class JobQueue {
 
     // Trigger the automated system recovery line asynchronously.
     // This runs in the background so it doesn't block the application from starting.
-    this.resumeUnfinishedJobs();
+
+    // this.resumeUnfinishedJobs();
   }
 
   /**
