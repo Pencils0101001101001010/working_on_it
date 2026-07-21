@@ -22,6 +22,7 @@ const DropDownMenu = ({ isOpen, setIsOpen }: UserProfileProps) => {
     if (isOpen) setIsOpen(false);
   });
 
+  //!There is a error on the deployement logs regarding user login. Where the authToken is not being seen by the backend
   const handleLogout = async () => {
     try {
       const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
