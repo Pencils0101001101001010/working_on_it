@@ -58,8 +58,14 @@ const DropDownMenu = ({ isOpen, setIsOpen }: UserProfileProps) => {
 
   return (
     // Attach the DOM reference pointer here
+
     <div ref={dropdownRef}>
-      <div className="user-icon">{user?.username}</div>
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className="user-icon">{user?.username}</div>
+      )}
+
       {isOpen && (
         <div className="dropdown-body">
           <Link
@@ -91,7 +97,7 @@ const DropDownMenu = ({ isOpen, setIsOpen }: UserProfileProps) => {
             onClick={handleLogout}
             className="button-89"
           >
-            {loading ? <Loading /> : "Logout"}
+            Logout
           </button>
         </div>
       )}
