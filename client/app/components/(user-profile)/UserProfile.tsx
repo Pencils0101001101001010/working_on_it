@@ -42,10 +42,13 @@ export default function UserProfile() {
     fetchUser();
   }, []);
 
-  if (!users)
+  if (!users) {
     return (
-      <div className="user-Profile-page-container">Login to see profile</div>
+      <div className="user-Profile-page-container">
+        <Loading />
+      </div>
     );
+  }
 
   // ⬇️ Determine image source: Use upload if it exists, otherwise use Dicebear
   const avatarSrc =
@@ -56,7 +59,6 @@ export default function UserProfile() {
     <div className="user-Profile-page-container">
       <div className="child-container-border">
         <div className="image-container-div">
-          {loading && <Loading />}
           <Image
             src={avatarSrc}
             alt={`${users.username}'s avatar`}
