@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import Loading from "../(loading spinner)/Loading";
 import toast from "react-hot-toast";
 import "./styles.css";
-
+import { useAuth } from "@/app/context/authContext";
 interface User {
   _id: string;
   name: string;
@@ -31,9 +31,13 @@ const NotesPage = () => {
   // to pass edited title and description to backend
   const [newTitle, setNewTitle] = useState("");
   const [newDescription, setNewDescription] = useState("");
+
+  const { token, loading: authLoading } = useAuth();
+
   const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   const getNotes = async () => {
+    if (!token) return;
     try {
       setLoading(true);
       // fetch all notes
@@ -41,6 +45,7 @@ const NotesPage = () => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         credentials: "include",
       });
@@ -72,8 +77,10 @@ const NotesPage = () => {
   };
 
   useEffect(() => {
-    getNotes();
-  }, []);
+    if (!authLoading) {
+      getNotes();
+    }
+  }, [authLoading, token]);
 
   const handleDeleteNote = async (id: string) => {
     try {

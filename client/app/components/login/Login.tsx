@@ -36,10 +36,6 @@ function Login() {
       const response = await fetch(`${baseUrl}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        /* 
-           This tells the browser to accept and 
-           save the HTTP-only cookie sent from Node.js backend.
-        */
         credentials: "include",
         body: JSON.stringify(data),
       });
@@ -50,25 +46,23 @@ function Login() {
         } else {
           setServerError("Something went wrong");
         }
+        return; // Added return to prevent script from running further on errors
       }
 
-      if (response.ok) {
-        // getting data from backend  response
-        const resData = await response.json();
+      const resData = await response.json();
+      const user = resData.user;
+      const token = resData.token; // 1. Extracted token from JSON response body
 
-        // extracting the user name
-        const user = resData.user;
-
-        if (user) {
-          loginUser(user);
-        }
-
+      if (user && token) {
+        loginUser(user, token); // 2. Pass both objects into updated AuthContext
         setSuccess(`Success! Welcome back ${user.username}`);
 
         route.refresh();
         setTimeout(() => {
           route.push("/");
         }, 1000);
+      } else {
+        setServerError("Invalid server response payload.");
       }
     } catch (error) {
       setServerError("Something went wrong. Try again later.");

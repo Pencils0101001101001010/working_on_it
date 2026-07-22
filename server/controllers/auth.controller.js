@@ -3,22 +3,21 @@ import User from "../models/Users.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-//configure cookies
-
+// Configure cookies for production across domains vs local development
 const cookieOptions = {
-  httpOnly: true, //prevent client-side scripts from reading token
-  secure: process.env.NODE_ENV === "production", //use HTTPS in production
-  sameSite: "strict", //Protects againts CSRF attacks
-  maxAge: 24 * 60 * 60 * 1000, //24 hours life
+  httpOnly: true, // Prevent client-side scripts from reading token
+  secure: true, // MUST be true in production to support sameSite: "none"
+  sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // Cross-domain compatibility for Vercel
+  maxAge: 24 * 60 * 60 * 1000, // 24 hours lifetime
   path: "/",
 };
 
 export const signup = async (req, res) => {
   try {
-    //grab the field submited
+    // Grab the fields submitted
     const { username, email, password, firstName, lastName, age } = req.body;
 
-    //compare the data submitted to the data in data base
+    // Compare the data submitted to the data in database
     const existingUser = await User.findOne({
       $or: [{ email }, { username }],
     });
@@ -29,10 +28,10 @@ export const signup = async (req, res) => {
       });
     }
 
-    // hass password
+    // Hash password
     const hashPassword = await bcrypt.hash(password, 10);
 
-    //Send new data to database
+    // Send new data to database
     const user = await User.create({
       username,
       email,
@@ -42,7 +41,7 @@ export const signup = async (req, res) => {
       age,
     });
 
-    //create a token
+    // Create a token
     const token = jwt.sign(
       {
         userId: user._id,
@@ -56,45 +55,46 @@ export const signup = async (req, res) => {
     const userWithoutPassword = user.toObject();
     delete userWithoutPassword.password;
 
-    //set token inside HTTP-Only cookie
+    // Set token inside cookie (fallback mechanism)
     res.cookie("authToken", token, cookieOptions);
 
-    res.status(201).json({
+    // Return user AND token string so frontend AuthContext can save it to localStorage
+    return res.status(201).json({
       user: userWithoutPassword,
+      token: token,
     });
   } catch (error) {
-    res.status(500).json(error);
+    return res.status(500).json(error);
   }
 };
 
 export const login = async (req, res) => {
   try {
-    //Get user from request
+    // Get user from request
     const { username, password } = req.body;
 
-    // find the user in the database
+    // Find the user in the database
     const user = await User.findOne({
       username,
     });
 
-    //incorrect details
+    // Incorrect details
     if (!user) {
       return res.status(401).json({
         message: "Invalid credentials.",
       });
     }
 
-    //compare the password in request to the one in the database
+    // Compare the password in request to the one in the database
     const isMatch = await bcrypt.compare(password, user.password);
-    // if incorrect return message
+    // If incorrect return message
     if (!isMatch) {
       return res.status(401).json({
         message: "Invalid credentials.",
       });
     }
 
-    //create token if everything passes
-
+    // Create token if everything passes
     const token = jwt.sign(
       {
         userId: user._id,
@@ -105,35 +105,36 @@ export const login = async (req, res) => {
       },
     );
 
-    //Remove password before sending response
+    // Remove password before sending response
     const userWithoutPassword = user.toObject();
     delete userWithoutPassword.password;
 
-    // Set token inside HTTP-Only cookie
+    // Set token inside cookie (fallback mechanism)
     res.cookie("authToken", token, cookieOptions);
 
-    //return user and token if all is a isMatch
-    res.json({
+    // Return user AND token string so frontend AuthContext can save it to localStorage
+    return res.json({
       message: "Login successful",
       user: userWithoutPassword,
+      token: token,
     });
   } catch (error) {
-    res.status(500).json(error);
+    return res.status(500).json(error);
   }
 };
 
 export const logout = async (req, res) => {
   try {
-    //Clear cookie by overwriting it and exporong it immediatly
+    // Clear cookie by overwriting it and expiring it immediately
     res.clearCookie("authToken", {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      secure: true,
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       path: "/",
     });
 
-    res.status(200).json({ message: "Logged out!" });
+    return res.status(200).json({ message: "Logged out!" });
   } catch (error) {
-    res.status(500).json(error);
+    return res.status(500).json(error);
   }
 };
