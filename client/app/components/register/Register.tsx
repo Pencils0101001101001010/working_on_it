@@ -12,10 +12,12 @@ import { useForm } from "react-hook-form";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Loading from "../(loading spinner)/Loading";
 
 function Register() {
   const [serverError, setServerError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [loading, isLoading] = useState(false);
 
   const route = useRouter();
 
@@ -41,6 +43,7 @@ function Register() {
 
   //use Registeroutput here because the data is fully validated by this point
   const onSubmit = async (data: RegisterInput) => {
+    isLoading(true);
     try {
       setServerError(null);
       setSuccess(null);
@@ -64,6 +67,8 @@ function Register() {
       }
     } catch (error) {
       setServerError("Something went wrong.");
+    } finally {
+      isLoading(false);
     }
   };
 
@@ -81,6 +86,7 @@ function Register() {
       <div>
         {" "}
         <form onSubmit={handleSubmit(onSubmit)} className="form">
+          {loading && <Loading />}
           <h1>Signup</h1>
           {serverError && <p style={{ color: "red" }}>{serverError}</p>}
           {success && <p style={{ color: "green" }}>{success}</p>}

@@ -7,10 +7,12 @@ import { LoginInput, loginSchema } from "@/app/lib/validators/auth-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/app/context/authContext";
+import Loading from "../(loading spinner)/Loading";
 
 function Login() {
   const [serverError, setServerError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
   const { loginUser } = useAuth();
   const route = useRouter();
 
@@ -28,6 +30,7 @@ function Login() {
   });
 
   let onSubmit = async (data: LoginInput) => {
+    setLoading(true);
     try {
       setServerError(null);
       setSuccess(null);
@@ -66,6 +69,8 @@ function Login() {
       }
     } catch (error) {
       setServerError("Something went wrong. Try again later.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -80,8 +85,12 @@ function Login() {
         />
       </div>
       <div>
+        {" "}
         <form onSubmit={handleSubmit(onSubmit)} className="form">
+          {loading && <Loading />}
+
           <h1>Login</h1>
+
           {serverError && <p style={{ color: "red" }}>{serverError}</p>}
           {success && <p style={{ color: "green" }}>{success}</p>}
           <label>Username:</label>
