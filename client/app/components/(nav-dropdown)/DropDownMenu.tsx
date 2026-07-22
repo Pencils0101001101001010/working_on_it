@@ -46,11 +46,6 @@ const DropDownMenu = ({ isOpen, setIsOpen }: UserProfileProps) => {
     }
   };
 
-  const handleSound = () => {
-    const audio = new Audio("/audio/hover-sound.mp3");
-    audio.play().catch((err) => alert("Audio blocked by browser."));
-  };
-
   const handleLogoutSound = () => {
     const audio = new Audio("/audio/logout-sound.mp3");
     audio.play().catch((err) => alert("Audio blocked by browser."));
@@ -69,7 +64,6 @@ const DropDownMenu = ({ isOpen, setIsOpen }: UserProfileProps) => {
       {isOpen && (
         <div className="dropdown-body">
           <Link
-            onMouseOver={handleSound}
             href={"/notes"}
             className="button-89"
             onClick={() => setIsOpen(false)}
@@ -78,14 +72,12 @@ const DropDownMenu = ({ isOpen, setIsOpen }: UserProfileProps) => {
           </Link>
           <Link
             href={"/videos"}
-            onMouseOver={handleSound}
             className="button-89"
             onClick={() => setIsOpen(false)}
           >
             Videos
           </Link>
           <Link
-            onMouseOver={handleSound}
             href={"/user-profile"}
             className="button-89"
             onClick={() => setIsOpen(false)}
