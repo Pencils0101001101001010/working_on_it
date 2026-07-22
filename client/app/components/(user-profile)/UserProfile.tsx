@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import "./user-profile.css";
+import Loading from "../(loading spinner)/Loading";
 
 interface UserInterface {
   profileImage: string;
@@ -16,9 +17,11 @@ interface UserInterface {
 
 export default function UserProfile() {
   const [users, setUsers] = useState<UserInterface | null>(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchUser = async () => {
+      setLoading(true);
       try {
         const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
         const response = await fetch(`${baseUrl}/user/`, {
@@ -32,12 +35,17 @@ export default function UserProfile() {
         setUsers(data);
       } catch (err) {
         console.error("Something went wrong:", err);
+      } finally {
+        setLoading(false);
       }
     };
     fetchUser();
   }, []);
 
-  if (!users) return <div>Loading...</div>;
+  if (!users)
+    return (
+      <div className="user-Profile-page-container">Login to see profile</div>
+    );
 
   // ⬇️ Determine image source: Use upload if it exists, otherwise use Dicebear
   const avatarSrc =
@@ -48,7 +56,7 @@ export default function UserProfile() {
     <div className="user-Profile-page-container">
       <div className="child-container-border">
         <div className="image-container-div">
-          {" "}
+          {loading && <Loading />}
           <Image
             src={avatarSrc}
             alt={`${users.username}'s avatar`}

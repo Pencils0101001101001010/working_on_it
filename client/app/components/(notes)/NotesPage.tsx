@@ -179,8 +179,7 @@ const NotesPage = () => {
   return (
     <div className="noteBodyContainer">
       <div className="noteHeader">
-        <span className="pageTitle">Notes</span>
-        {loading && <Loading />}
+        <span className="pageTitle"> {loading ? <Loading /> : "Notes"}</span>
 
         <Link href={"/createNote"}>
           <svg
