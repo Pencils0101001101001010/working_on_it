@@ -34,9 +34,7 @@ const VideoEditInterface = () => {
 
     // Fire upload stream
     await uploadVideo(selectedFile, selectedFile.name);
-    // console.log(
-    //   `File size:  ${selectedFile.size} \n  Filename:  ${selectedFile.name} \n File type:  ${selectedFile.type}\n Other: ${selectedFile.bytes}`,
-    // );
+
     setSelectedFile(null); //Clear form input once upload is done
   };
 
