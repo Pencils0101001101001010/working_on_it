@@ -77,15 +77,6 @@ const VideoEditInterface = () => {
         </button>
       </form>
 
-      {/* debugging logs to confirm if ID is being passed */}
-      {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {selectedVideoId && (
-          <div className="mb-4 p-3 bg-neutral-900 border border-blue-900 text-blue-400 rounded text-sm">
-            Selected Video ID for resizing:{" "}
-            <span className="font-mono text-white">{selectedVideoId}</span>
-          </div>
-        )}
-      </div> */}
       {/* Responsive media view grid using custom layout boundaries across variable client viewports. */}
       {isModalOpen && <ResizeModal />}
 
